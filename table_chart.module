@@ -24,6 +24,16 @@ function table_chart_library() {
       array('table_chart', 'tabletojson'),
     ),
   );
+  // Raphael
+  $libraries['raphaeljs'] = array(
+    'title' => 'Raphael',
+    'version' => '2.1.2',
+    'js' => array(
+      libraries_get_path('raphael') . '/raphael-min.js' => array(
+        'scope' => 'footer',
+      ),
+    ),
+  );
   // Morris.js
   $libraries['morrisjs'] = array(
     'title' => 'Morris.js',
@@ -38,6 +48,10 @@ function table_chart_library() {
       libraries_get_path('morris.js') . '/morris.css' => array(
         'type' => 'file',
       ),
+    ),
+    'dependencies' => array(
+      // Require jQuery UI core by System module.
+      array('table_chart', 'raphaeljs'),
     ),
   );
   // Table to JSON.
