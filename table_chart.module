@@ -21,7 +21,7 @@ function table_chart_library() {
       // Require jQuery UI core by System module.
       array('table_chart', 'morrisjs'),
       // Require our other library.
-      array('table_char', 'tabletojson'),
+      array('table_chart', 'tabletojson'),
     ),
   );
   // Morris.js
