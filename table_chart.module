@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * Table to chart module
+ */
+
+/**
+ * Implements hook_library().
+ */
+function table_chart_library() {
+  $libraries['tabletochart'] = array(
+    'title' => 'Table to Chart',
+    'version' => '1.0',
+    'js' => array(
+      drupal_get_path('module', 'table_chart') . '/table_chart.js' => array(
+        'scope' => 'footer',
+      ),
+    ),
+    'dependencies' => array(
+      // Require jQuery UI core by System module.
+      array('table_chart', 'morrisjs'),
+      // Require our other library.
+      array('table_char', 'tabletojson'),
+    ),
+  );
+  // Morris.js
+  $libraries['morrisjs'] = array(
+    'title' => 'Morris.js',
+    'website' => 'http://www.oesmith.co.uk/morris.js/',
+    'js' => array(
+      libraries_get_path('morris.js') . '/morris.min.js' => array(
+        'scope' => 'footer',
+      ),
+    ),
+    'css' => array(
+      libraries_get_path('morris.js') . '/morris.css' => array(
+        'type' => 'file',
+      ),
+    ),
+  );
+  // Table to JSON.
+  $libraries['tabletojson'] = array(
+    'title' => 'Table to JSON',
+    'website' => 'http://lightswitch05.github.io/table-to-json/',
+    'js' => array(
+      libraries_get_path('tabletojson') . '/lib/jquery.tabletojson.min.js' => array(
+        'scope' => 'footer',
+      ),
+    ),
+  );
+  return $libraries;
+}
