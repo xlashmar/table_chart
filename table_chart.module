@@ -44,7 +44,7 @@ function table_chart_library() {
   $libraries['tabletojson'] = array(
     'title' => 'Table to JSON',
     'website' => 'http://lightswitch05.github.io/table-to-json/',
-    'version' => '0.1',
+    'version' => '0.6',
     'js' => array(
       libraries_get_path('tabletojson') . '/lib/jquery.tabletojson.min.js' => array(
         'scope' => 'footer',
