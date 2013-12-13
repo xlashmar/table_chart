@@ -1,26 +1,27 @@
 (function($) {
   Drupal.behaviors.table_chart = {
     attach: function(context, settings) {
-      var table = $('.view-display-id-dropfort_um_update_status_code_pane table').tableToJSON();
-      console.log(JSON.stringify(table));
+      var table_data = $('.view-display-id-dropfort_um_update_status_code_pane table').tableToJSON();
+      console.log(JSON.stringify(table_data));
       $('.view-display-id-dropfort_um_update_status_code_pane').append('<div id="myfirstchart" style="height: 250px;"></div>');
+      var result = [];
+
+      for(var i in table_data) {
+        result.push([i, table_data [i]]);
+      }
+
+          
       // @todo replace with data from table
-      new Morris.Line({
+      new Morris.Donut({
         element: 'myfirstchart',
-        data: [
-            { year: '2008', value: 20 },
-            { year: '2009', value: 10 },
-            { year: '2010', value: 5 },
-            { year: '2011', value: 5 },
-            { year: '2012', value: 20 }
-          ],
+        data: result,
           // The name of the data record attribute that contains x-values.
-          xkey: 'year',
+//          xkey: 'year',
           // A list of names of data record attributes that contain y-values.
-          ykeys: ['value'],
+//          ykeys: ['value'],
           // Labels for the ykeys -- will be displayed when you hover over the
           // chart.
-          labels: ['Value']
+//          labels: ['Value']
       });
     }
   };
