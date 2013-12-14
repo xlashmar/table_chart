@@ -40,7 +40,7 @@ class table_chart_plugin_display_extender_attributes extends views_plugin_displa
   function options_form(&$form, &$form_state) {
     if ($form_state['section'] == 'attributes') {
       $form['#title'] .= t('The attributes added to the display wrapper.');
-      $libraries = $this->display->get_option('attributes');
+      $attributes = $this->display->get_option('attributes');
       $form['attributes'] = array(
         '#type' => 'textarea',
         '#title' => t('Attributes to add to this display\'s wrapper'),
