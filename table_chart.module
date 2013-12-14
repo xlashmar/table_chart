@@ -84,3 +84,10 @@ function table_chart_views_api() {
 function table_chart_preprocess_views_view_table(&$vars) {
   dpm($vars);
 }
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function table_chart_views_pre_render(&$view) {
+  dpm($view);
+}
