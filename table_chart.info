@@ -2,3 +2,4 @@ name = Table to Chart
 description = Display tabular data as a chart with Morris.js
 core = 7.x
 dependencies[] = libraries
+enhances[] = views
