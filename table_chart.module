@@ -77,3 +77,10 @@ function table_chart_views_api() {
     'path' => drupal_get_path('module', 'table_chart') . '/views',
   );
 }
+
+/**
+ * Implements hook_preprocess_views_view_table().
+ */
+function table_chart_preprocess_views_view_table(&$vars) {
+  dpm($vars);
+}
