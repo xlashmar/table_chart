@@ -12,29 +12,12 @@ class table_chart_plugin_display_extender_attributes extends views_plugin_displa
   }
 
   function options_summary(&$categories, &$options) {
-    $libraries = $this->display->get_option('libraries');
+    $attributes = $this->display->get_option('attributes');
     $options['attributes'] = array(
       'category' => 'other',
       'title' => t('Attributes'),
       'value' => !empty($attributes) ? t('Attributes added'): t('None'),
-//      'value' => !empty($attributes) ? $this->getAttributesSummary($attributes) : t('None'),
     );
-  }
-
-  /**
-   * Given an array of libraries, convert them into simple 'summary' text.
-   */
-  protected function getAttributesSummary(array $attributes) {
-    // @todo change the array
-    $attribute_list = array();
-    foreach ($attributes as $key) {
-//      list($module, $name) = explode(':', $key, 2);
-//      if ($library = drupal_get_library($module, $name)) {
-//        $library_names[] = check_plain($library['title']);
-//      }
-    }
-
-//    return implode(', ', $library_names);
   }
 
   function options_form(&$form, &$form_state) {
