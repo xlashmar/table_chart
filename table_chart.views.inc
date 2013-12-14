@@ -6,13 +6,6 @@
  */
 
 /**
- * Implements hook_views_api().
- */
-function table_chart_views_api() {
-  return array('api' => 3);
-}
-
-/**
  * Implements hook_views_plugins().
  */
 function table_chart_views_plugins() {

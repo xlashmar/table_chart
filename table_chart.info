@@ -3,3 +3,4 @@ description = Display tabular data as a chart with Morris.js
 core = 7.x
 dependencies[] = libraries
 enhances[] = views
+files[] = views/table_chart_plugin_display_extender_attributes.inc
