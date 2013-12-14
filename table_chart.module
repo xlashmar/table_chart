@@ -82,8 +82,36 @@ function table_chart_views_api() {
  * Implements hook_preprocess_views_view_table().
  */
 function table_chart_preprocess_views_view_table(&$vars) {
-  dpm($vars);
-  $view &= $vars['view'];
-  $attributes = $view->display_handler->get_option('attributes');
-  dpm($attributes);
+  if (!empty($vars['view'])) {
+    $attributes = $vars['view']->display_handler->get_option('attributes');
+    $attributes = table_chart_attributes_keyed_array($attributes);
+    if (!empty($attributes)) {
+      $vars['attributes_array'] = $vars['attributes_array'] + $attributes;
+    }
+  }
+}
+
+/**
+ * Convert the attributes string into an array compatible with drupal_attributes
+ *
+ * @param string $attributes
+ *  String settings for the attributes
+ * @return array
+ *  Returns the array of valid attributes.
+ */
+function table_chart_attributes_keyed_array($attributes) {
+  $tmp = explode("\n", $attributes);
+  $tmp = array_filter($tmp, 'trim');
+
+  $keyed_attributes = array();
+  foreach ($tmp as $attribute) {
+    parse_str($attribute, $array);
+    if (isset($array['id']) or isset($array['class'])) {
+      // Skip the ID and Class attributes since views allows those to be set elsewhere.
+      continue;
+    }
+    $keyed_attributes = $array + $keyed_attributes;
+  }
+
+  return $keyed_attributes;
 }

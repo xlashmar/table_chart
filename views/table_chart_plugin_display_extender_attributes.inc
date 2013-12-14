@@ -27,7 +27,7 @@ class table_chart_plugin_display_extender_attributes extends views_plugin_displa
       $form['attributes'] = array(
         '#type' => 'textarea',
         '#title' => t('Attributes to add to this display\'s wrapper'),
-        '#description' => t('Add one attribute per line (e.g. data-mydata="custom data"). Note that <em>class</em> and <em>id</em> attributes are not allowed in this list.'),
+        '#description' => t('Add one attribute per line (e.g. data-mydata=custom data). Leave out the wrapping quotes around the value since Drupal will add those automatically. Note that <em>class</em> and <em>id</em> attributes are not allowed in this list.'),
         '#default_value' => $attributes,
       );
     }
