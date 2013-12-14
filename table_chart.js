@@ -8,9 +8,12 @@
           // @todo figure out how to find the table
           // @todo figure out how to find the table settings
           var wrapper = $(this);
+          var colors = table.data('morris-colors') ? table.data('morris-colors') : ['#0B62A4', '#25567B','#043E6B','#3F92D2','#66A3D2'];
           var table = wrapper.find('table');
           var table_data = table.tableToJSON();
           var keys = [];
+      
+          console.log(colors);
       
           // Get the list of keys
           for (var i in table_data) {
@@ -35,7 +38,7 @@
               // chart.
               labels: keys,
               hideHover: false,
-              barColors: ['#0B62A4', '#25567B','#043E6B','#3F92D2','#66A3D2']
+              barColors: colors
           });
 
           wrapper.find('.button.toggle-table').click(function(event){
