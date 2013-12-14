@@ -50,11 +50,11 @@ class table_chart_plugin_display_extender_attributes extends views_plugin_displa
     }
   }
 
-//  function options_submit(&$form, &$form_state) {
-//    if ($form_state['section'] == 'attributes') {
+  function options_submit(&$form, &$form_state) {
+    if ($form_state['section'] == 'attributes') {
 //      // Select boxes filter out empty values, so don't need to array_filter().
 //      $libraries = array_keys($form_state['values']['attributes']);
-//      $this->display->set_option('attributes', $attributes);
-//    }
-//  }
+      $this->display->set_option('attributes', $attributes);
+    }
+  }
 }
