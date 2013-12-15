@@ -11,13 +11,22 @@
           var table = wrapper.find('table');
           
           // Chart settings
-          var colors = table.data('morris-colors') ? table.data('morris-colors').split(',') : ['#0B62A4', '#25567B','#043E6B','#3F92D2','#66A3D2'];
-          var keys = [];
+          var colors = table.data('morris-colors') ? table.data('morris-colors').split(',') : [];
 
           // Data settings
-
+          var ignoreColumns = table.data('tabletojson-ignorecolumns') ? table.data('tabletojson-ignorecolumns').split(',') : [];
+          var onlyColumns = table.data('tabletojson-onlyColumns') ? table.data('tabletojson-onlyColumns').split(',') : null;
+          var ignoreHiddenRows = table.data('tabletojson-ignoreHiddenRows') ? 'true' === table.data('tabletojson-ignoreHiddenRows') : true;
+          var headings = table.data('tabletojson-headings') ? table.data('tabletojson-headings').split(',') : null;
+          var keys = [];
+          
           // @todo adjust the data imported based on settings
-          var table_data = table.tableToJSON();
+          var table_data = table.tableToJSON({
+            ignoreColumns: ignoreColumns,
+            onlyColumns: onlyColumns,
+            ignoreHiddenRows: ignoreHiddenRows,
+            headings: headings
+          });
       
           // Get the list of keys
           for (var i in table_data) {

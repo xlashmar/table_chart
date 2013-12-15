@@ -23,11 +23,11 @@ class table_chart_plugin_display_extender_attributes extends views_plugin_displa
 
   function options_form(&$form, &$form_state) {
     if ($form_state['section'] == 'attributes') {
-      $form['#title'] .= t('The attributes added to the display wrapper.');
+      $form['#title'] .= t('Data attributes added to the display wrapper.');
       $attributes = $this->display->get_option('attributes');
       $form['attributes'] = array(
         '#type' => 'textarea',
-        '#title' => t('Attributes to add to this display\'s wrapper'),
+        '#title' => t('Data attributes to add to this display\'s wrapper and fields.'),
         '#description' => t('Add one data attribute per line. The data-* will automatically be prepended to your attribute definition. Leave out the wrapping quotes around the value since Drupal will add those automatically. (e.g. mydata=custom data turns into data-mydata="custom data")'),
         '#default_value' => $attributes,
       );
