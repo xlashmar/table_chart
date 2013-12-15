@@ -51,7 +51,7 @@
           var settings = {
             element: 'morris-chart-'+count,
             data: table_data,
-            resize: responsive
+            resize: resize
           };
 
           switch (type) {
