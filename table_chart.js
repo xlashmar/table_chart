@@ -8,12 +8,16 @@
           // @todo figure out how to find the table
           // @todo figure out how to find the table settings
           var wrapper = $(this);
-          var colors = table.data('morris-colors') ? table.data('morris-colors') : ['#0B62A4', '#25567B','#043E6B','#3F92D2','#66A3D2'];
           var table = wrapper.find('table');
-          var table_data = table.tableToJSON();
+          
+          // Chart settings
+          var colors = table.data('morris-colors') ? table.data('morris-colors').split(',') : ['#0B62A4', '#25567B','#043E6B','#3F92D2','#66A3D2'];
           var keys = [];
-      
-          console.log(colors);
+
+          // Data settings
+
+          // @todo adjust the data imported based on settings
+          var table_data = table.tableToJSON();
       
           // Get the list of keys
           for (var i in table_data) {
