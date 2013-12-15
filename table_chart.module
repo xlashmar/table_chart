@@ -106,11 +106,11 @@ function table_chart_attributes_keyed_array($attributes) {
   $keyed_attributes = array();
   foreach ($tmp as $attribute) {
     parse_str($attribute, $array);
-    if (isset($array['id']) or isset($array['class'])) {
-      // Skip the ID and Class attributes since views allows those to be set elsewhere.
-      continue;
+    if (is_array($array)) {
+      foreach ($array as $key => $value) {
+        $keyed_attributes['data-' . $key] = $value;
+      }      
     }
-    $keyed_attributes = $array + $keyed_attributes;
   }
 
   return $keyed_attributes;
