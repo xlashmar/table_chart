@@ -81,7 +81,7 @@
     };
 
     // Set per-type settings
-    switch (type) {
+    switch (options.type) {
       case 'bar':
         if (null !== options.colors && options.colors != undefined) {
           settings.barColors = options.colors;
