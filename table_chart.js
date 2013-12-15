@@ -12,13 +12,13 @@
           
           // Chart settings
           var colors = table.data('morris-colors') ? table.data('morris-colors').split(',') : null;
-          var responsive = table.data('morris-responsive') ? 'true' === table.data('morris-responsive') : false;
+          var responsive = table.data('morris-responsive') ? true == table.data('morris-responsive') : false;
           var type = table.data('morris-type') ? table.data('morris-type') : 'line';
 
           // Data settings
           var ignoreColumns = table.data('tabletojson-ignorecolumns') ? table.data('tabletojson-ignorecolumns').split(',') : [];
           var onlyColumns = table.data('tabletojson-onlyColumns') ? table.data('tabletojson-onlyColumns').split(',') : null;
-          var ignoreHiddenRows = table.data('tabletojson-ignoreHiddenRows') ? 'true' === table.data('tabletojson-ignoreHiddenRows') : true;
+          var ignoreHiddenRows = table.data('tabletojson-ignoreHiddenRows') ? true == table.data('tabletojson-ignoreHiddenRows') : true;
           var headings = table.data('tabletojson-headings') ? table.data('tabletojson-headings').split(',') : null;
           var keys = [];
 
