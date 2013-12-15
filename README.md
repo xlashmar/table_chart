@@ -24,6 +24,9 @@ Usage
 You can control the display of the chart and the columns used using data attributes on your table and columns. Here are the available options:
 
 #### Chart settings
+morris-type
+: The type of chart: Options include bar, line, donut and area. Default is line.
+
 morris-colors
 : Comma separated list of colors. Hex values (including the # symbol) or a default color (red, green, blue, etc...)
 
