@@ -72,37 +72,13 @@
             break;
           case 'area':
             // @todo adjust area settings
-            new Morris.Area({
-              element: 'morris-chart-'+count,
-              data: table_data,
-                // The name of the data record attribute that contains x-values.
-                xkey: keys.shift(),
-                // A list of names of data record attributes that contain y-values.
-                ykeys: keys,
-                // Labels for the ykeys -- will be displayed when you hover over the
-                // chart.
-                labels: keys,
-                hideHover: false,
-                barColors: colors
-            });
+            new Morris.Area(settings);
 
             break;
           case 'line':
           default:
             // @todo adjust line settings
-            new Morris.Line({
-              element: 'morris-chart-'+count,
-              data: table_data,
-                // The name of the data record attribute that contains x-values.
-                xkey: keys.shift(),
-                // A list of names of data record attributes that contain y-values.
-                ykeys: keys,
-                // Labels for the ykeys -- will be displayed when you hover over the
-                // chart.
-                labels: keys,
-                hideHover: false,
-                barColors: colors
-            });
+            new Morris.Line(settings);
           }
       
 
@@ -120,4 +96,11 @@
       });
     }
   };
+  
+  /**
+   * Generate the chart with the given defaults
+   */
+  function drawChart(options) {
+    // @todo move the chart generator into here so we can make the charts redraw live.
+  }
 }(jQuery));
