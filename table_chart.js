@@ -12,7 +12,7 @@
           
           // Chart settings
           var colors = table.data('morris-colors') ? table.data('morris-colors').split(',') : null;
-          var responsive = table.data('morris-responsive') ? true == table.data('morris-responsive') : false;
+          var resize = table.data('morris-resize') ? true == table.data('morris-resize') : false;
           var type = table.data('morris-type') ? table.data('morris-type') : 'line';
 
           // Data settings
@@ -51,7 +51,7 @@
           var settings = {
             element: 'morris-chart-'+count,
             data: table_data,
-            responsive: responsive
+            resize: responsive
           };
 
           switch (type) {
