@@ -51,10 +51,10 @@
             element: 'morris-chart-'+count,
             data: table_data
           };
-          
+
           switch (type) {
           case 'bar':
-            if (null !== colors && colors[0].value) {
+            if (null !== colors && colors != undefined) {
               settings.barColors = colors;
             }
             settings.xkey = keys.shift();
@@ -64,7 +64,7 @@
             new Morris.Bar(settings);
             break;
           case 'donut':
-            if (null !== colors && colors[0].value) {
+            if (null !== colors && colors != undefined) {
               settings.colors = colors;
             }
             new Morris.Donut(settings);
