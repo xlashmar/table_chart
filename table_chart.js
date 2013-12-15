@@ -12,6 +12,7 @@
           
           // Chart settings
           var colors = table.data('morris-colors') ? table.data('morris-colors').split(',') : null;
+          var responsive = table.data('morris-responsive') ? 'true' === table.data('morris-responsive') : false;
           var type = table.data('morris-type') ? table.data('morris-type') : 'line';
 
           // Data settings
@@ -49,7 +50,8 @@
           wrapper.append('<div id="morris-chart-'+count+'" class="morris-chart" style="height: 250px;"></div><a href="#" class="button toggle-table fa fa-table">' + Drupal.t("Show data") + '</a>');
           var settings = {
             element: 'morris-chart-'+count,
-            data: table_data
+            data: table_data,
+            responsive: responsive
           };
 
           switch (type) {
