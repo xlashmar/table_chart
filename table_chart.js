@@ -23,7 +23,7 @@
           options.ymax = table.data('morris-ymax') ? table.data('morris-ymax') : null;
           options.ymin = table.data('morris-ymin') ? table.data('morris-ymin') : null;
           options.smooth = table.data('morris-smooth') ? true == table.data('morris-smooth') : true;
-          // @todo handle the four possible values options.hideHover = table.data('morris-hideHover') ? (true == table.data('morris-hideHover') || 'auto' == table.data('morris-hideHover')) : false;
+          options.hideHover = table.data('morris-hideHover') ? table.data('morris-hideHover') : false;
           options.hoverCallback = table.data('morris-hoverCallback') ? table.data('morris-hoverCallback') : null;
           options.parseTime = table.data('morris-parseTime') ? true == table.data('morris-parseTime') : true;
           options.postUnits = table.data('morris-postUnits') ? table.data('morris-postUnits') : null;
@@ -42,11 +42,12 @@
           options.axes = table.data('morris-axes') ? true == table.data('morris-axes') : true;
           options.grid = table.data('morris-grid') ? true == table.data('morris-grid') : true;
           options.gridTextColor = table.data('morris-gridTextColor') ? table.data('morris-gridTextColor') : null;
-          options.gridTextSize = table.data('morris-gridTextSize') ? table.data('morris-gridTextSize') : null;
+          options.gridTextSize = table.data('morris-gridTextSize') ? parseInt(table.data('morris-gridTextSize'), 10) : null;
           options.gridTextFamily = table.data('morris-gridTextFamily') ? table.data('morris-gridTextFamily') : null;
           options.gridTextWeight = table.data('morris-gridTextWeight') ? table.data('morris-gridTextWeight') : null;
           options.fillOpacity = table.data('morris-fillOpacity') ? parseFloat(table.data('morris-fillOpacity')) : null;
           options.behaveLikeLine = table.data('morris-behaveLikeLine') ? true == table.data('morris-behaveLikeLine') : null;
+          options.formatter = table.data('morris-formatter') ? table.data('morris-formatter') : null;
           
           // Data settings
           options.ignoreColumns = table.data('tabletojson-ignorecolumns') ? table.data('tabletojson-ignorecolumns').split(',') : [];
@@ -59,7 +60,7 @@
           
           // Ensure all the values are true integers and not string numbers
           options.ignoreColumns = options.ignoreColumns.map(function (x) { 
-              return parseInt(x, 10); 
+              return parseInt(x, 10);
           });
           
           // Read the table data with the given configuration
@@ -114,18 +115,49 @@
     // Set per-type settings
     switch (options.type) {
       case 'bar':
+        // Add optional settings
         if (null !== options.colors && options.colors != undefined) {
           settings.barColors = options.colors;
         }
+        if (null !== options.hideHover) {
+          settings.hideHover = options.hideHover;
+        }
+        if (null !== options.hoverCallback) {
+          settings.hoverCallback = options.hoverCallback;
+        }
+        if (null !== options.axes) {
+          settings.axes = options.axes;
+        }
+        if (null !== options.grid) {
+          settings.grid = options.grid;
+        }
+        if (null !== options.gridTextColor) {
+          settings.gridTextColor = options.gridTextColor;
+        }
+        if (null !== options.gridTextSize) {
+          settings.gridTextSize = options.gridTextSize;
+        }
+        if (null !== options.gridTextFamily) {
+          settings.gridTextFamily = options.gridTextFamily;
+        }
+        if (null !== options.gridTextWeight) {
+          settings.gridTextWeight = options.gridTextWeight;
+        }
+
+        // Add required settings
         settings.xkey = options.keys.shift();
         settings.ykeys = options.keys;
         settings.labels = options.keys;
         settings.hideHover = false;
+
         new Morris.Bar(settings);
         break;
       case 'donut':
         if (null !== options.colors && options.colors != undefined) {
           settings.colors = options.colors;
+        }
+        if (null !== options.formatter) {
+          settings.formatter = options.formatter;
         }
         new Morris.Donut(settings);
 
