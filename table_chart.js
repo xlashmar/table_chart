@@ -143,12 +143,14 @@
         if (null !== options.gridTextWeight) {
           settings.gridTextWeight = options.gridTextWeight;
         }
+        if (null !== options.hideHover) {
+          settings.hideHover = options.hideHover;
+        }
 
         // Add required settings
         settings.xkey = options.keys.shift();
         settings.ykeys = options.keys;
         settings.labels = options.keys;
-        settings.hideHover = false;
 
         new Morris.Bar(settings);
         break;
@@ -163,18 +165,36 @@
 
         break;
       case 'area':
-        // @todo adjust area settings
-        new Morris.Area(settings);
-
-        break;
+        // Add optional settings
+        if (null !== options.behaveLikeLine) {
+          settings.behaveLikeLine = options.behaveLikeLine;
+        }
+        
+        // Area and Line share all the same configuration except the one option
+        // So we fall into the default case and check at the end which type to
+        // generate.
       case 'line':
       default:
+        // Add optional settings
+
         if (null !== options.colors && options.colors != undefined) {
           settings.lineColors = options.colors;
         }
+        
+        
+        // Add required settings
+        settings.xkey = options.keys.shift();
+        settings.ykeys = options.keys;
+        settings.labels = options.keys;
+
 
         // @todo adjust line settings
-        new Morris.Line(settings);
+        if (options.type == 'area') {
+          new Morris.Area(settings);    
+        }
+        else {
+          new Morris.Line(settings);    
+        }
     }
   }
 }(jQuery));
