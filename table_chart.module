@@ -41,12 +41,12 @@ function table_chart_library() {
     'version' => '0.4.3',
     'website' => 'http://www.oesmith.co.uk/morris.js/',
     'js' => array(
-      libraries_get_path('morris.js') . '/morris.min.js' => array(
+      libraries_get_path('morrisjs') . '/morris.min.js' => array(
         'scope' => 'footer',
       ),
     ),
     'css' => array(
-      libraries_get_path('morris.js') . '/morris.css' => array(
+      libraries_get_path('morrisjs') . '/morris.css' => array(
         'type' => 'file',
       ),
     ),
