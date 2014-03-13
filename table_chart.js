@@ -81,13 +81,14 @@
 
           // Prepare display
           table.addClass('element-invisible');
-          wrapper.append('<div id="' + options.element + '" class="morris-chart" style="height: 250px;"></div><a href="#" class="button toggle-table fa fa-table">' + Drupal.t("Show data") + '</a>');
+          wrapper.append('<div id="' + options.element + '" class="morris-chart" style="height: 250px;"></div> <a href="#" class="button toggle-table" title="'+ Drupal.t("Toggle Data Table") +'">' + Drupal.t("Show data") + '</a>');
           
           // Draw the chart with the given options
           drawChart(options);
 
           wrapper.find('.button.toggle-table').click(function(event){
             table.toggleClass('element-invisible');
+            $(this).toggleClass('down');
             if (table.hasClass('element-invisible')) {
               $(this).text(Drupal.t('Show Data'));
             }
