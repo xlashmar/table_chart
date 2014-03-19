@@ -21,7 +21,16 @@ Usage
 
 ### Data Attributes
 
-You can control the display of the chart and the columns used using data attributes on your table and columns. Here are the available options:
+You can control the display of the chart and the columns used using data attributes on your table and columns.
+Take any of the following options and preface with 'data-*'.
+
+Ex:
+
+````
+<table class="table-chart" data-morris-type="line" data-morris-colors="red">...</table>
+````
+
+Here are the available options:
 
 #### Chart settings
 morris-type
@@ -30,6 +39,105 @@ morris-type
 morris-colors
 : Comma separated list of colors. Hex values (including the # symbol) or a default color (red, green, blue, etc...)
 
+morris-resize
+: Boolean value to enable automatic resizing (i.e. responsive charts, requires latest dev version of Morris.js
+
+morris-lineWidth
+: Specify line width
+
+morris-pointSize
+: Specify the point size
+
+morris-pointFillColors
+: Specify point fill colours
+
+morris-pointStrokeColors
+: Specify point stroke colours
+
+morris-ymax
+: Y max value
+
+morris-ymin
+: Y min value
+
+morris-smooth
+: Boolean smooth flag
+
+morris-hideHover
+: Boolean flag hide hover
+
+morris-hoverCallback
+: Hover callback function
+
+morris-parseTime
+: Boolean parse time
+
+morris-postUnits
+: Post units
+
+morris-preUnits
+: Pre units
+
+morris-dateFormat
+: Date format
+
+morris-xLabels
+: X Labels
+
+morris-xLabelFormat
+: X Lable format
+
+morris-yLabelFormat
+: Y Lable format
+
+morris-goals
+: Goals
+
+morris-goalStrokeWidth
+: Goal stroke width
+
+morris-goalLineColors
+: Goal line colors
+
+morris-events
+: Morris events
+
+morris-eventStrokeWidth
+: Event stroke width
+
+morris-eventLineColors
+: Event line colors
+
+morris-continuousLine
+: Continuous Line
+
+morris-axes
+: Axes
+
+morris-grid
+: Grid
+
+morris-gridTextColor
+: Grid text colour
+
+morris-gridTextSize
+: Grid text size
+
+morris-gridTextFamily
+: Grid text family
+
+morris-gridTextWeight
+: Gride text weight
+
+morris-fillOpacity
+: Fill opacity
+
+morris-behaveLikeLine
+: Boolean behave like line
+
+morris-formatter
+: Formatter
+
 #### Data settings
 For more details on each option see https://github.com/lightswitch05/table-to-json
 
@@ -37,7 +145,7 @@ tabletojson-ignoreColumns
 : Comma separated list of columns to ignore. Use index values starting at zero (0) (e.g. Ignore the first, third and sixth columns - 0,2,5)
 
 tabletojson-onlyColumns
-: Comma separated list of columns to include. 
+: Comma separated list of columns to include.
 
 tabletojson-ignoreHiddenRows
 : Boolean value. Set to "true" or "false" accordingly. (e.g. data-tabletojson-ignoreHiddenRows=true)
