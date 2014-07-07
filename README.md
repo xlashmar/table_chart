@@ -3,6 +3,12 @@ Table to Chart
 
 Convert a table of data to a chart with Morris.js
 
+Installation
+------------
+
+There are three external libraries required. The libraries should be placed in your "libraries" directory.
+See the example make file for more information.
+
 Usage
 -----
 
