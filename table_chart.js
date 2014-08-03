@@ -9,7 +9,7 @@
           // @todo figure out how to find the table settings
           var wrapper = $(this);
           var table = wrapper.find('table');
-          
+
           // Chart settings
           var options = {};
           options.element = 'morris-chart-' + count;
@@ -47,22 +47,37 @@
           options.gridTextWeight = table.data('morris-gridTextWeight') ? table.data('morris-gridTextWeight') : null;
           options.fillOpacity = table.data('morris-fillOpacity') ? parseFloat(table.data('morris-fillOpacity')) : null;
           options.behaveLikeLine = table.data('morris-behaveLikeLine') ? true == table.data('morris-behaveLikeLine') : null;
-          options.formatter = table.data('morris-formatter') ? table.data('morris-formatter') : null;
-          
+          options.xkey = table.data('morris-xkey') ? table.data('morris-xkey') : null;
+          options.ykeys = table.data('morris-ykeys') ? table.data('morris-ykeys').split(',') : [];
+
           // Data settings
-          options.ignoreColumns = table.data('tabletojson-ignorecolumns') ? table.data('tabletojson-ignorecolumns').split(',') : [];
-          options.onlyColumns = table.data('tabletojson-onlyColumns') ? table.data('tabletojson-onlyColumns').split(',') : null;
+
+          // Ignoring the first column (i.e. 0) has some odd behavior. Zero (0)
+          // being misinterpreted as the emtpy array value. So we treat this
+          // case separately.
+          if (table.data('tabletojson-ignoreColumns') == 0) {
+            options.ignoreColumns = [0];
+          }
+          else {
+            options.ignoreColumns = table.data('tabletojson-ignoreColumns') ? String(table.data('tabletojson-ignoreColumns')).split(',') : [];
+          }
+          // Same issue as above
+          if (table.data('tabletojson-onlyColumns') == 0) {
+            options.onlyColumns = [0];
+          }
+          else {
+            options.onlyColumns = table.data('tabletojson-onlyColumns') ? table.data('tabletojson-onlyColumns').split(',') : null;
+          }
           options.ignoreHiddenRows = table.data('tabletojson-ignoreHiddenRows') ? true == table.data('tabletojson-ignoreHiddenRows') : true;
           options.headings = table.data('tabletojson-headings') ? table.data('tabletojson-headings').split(',') : null;
           options.keys = [];
-
           // Data preperation
-          
+
           // Ensure all the values are true integers and not string numbers
-          options.ignoreColumns = options.ignoreColumns.map(function (x) { 
+          options.ignoreColumns = options.ignoreColumns.map(function (x) {
               return parseInt(x, 10);
           });
-          
+
           // Read the table data with the given configuration
           options.table_data = table.tableToJSON({
             ignoreColumns: options.ignoreColumns,
@@ -82,7 +97,7 @@
           // Prepare display
           table.addClass('element-invisible');
           wrapper.append('<div id="' + options.element + '" class="morris-chart" style="height: 250px;"></div> <a href="#" class="button toggle-table" title="'+ Drupal.t("Toggle Data Table") +'">' + Drupal.t("Show data") + '</a>');
-          
+
           // Draw the chart with the given options
           drawChart(options);
 
@@ -101,7 +116,7 @@
       });
     }
   };
-  
+
   /**
    * Generate the chart with the given defaults
    */
@@ -170,7 +185,7 @@
         if (null !== options.behaveLikeLine) {
           settings.behaveLikeLine = options.behaveLikeLine;
         }
-        
+
         // Area and Line share all the same configuration except the one option
         // So we fall into the default case and check at the end which type to
         // generate.
@@ -181,20 +196,19 @@
         if (null !== options.colors && options.colors != undefined) {
           settings.lineColors = options.colors;
         }
-        
-        
+
+
         // Add required settings
         settings.xkey = options.keys.shift();
         settings.ykeys = options.keys;
         settings.labels = options.keys;
 
-
         // @todo adjust line settings
         if (options.type == 'area') {
-          new Morris.Area(settings);    
+          new Morris.Area(settings);
         }
         else {
-          new Morris.Line(settings);    
+          new Morris.Line(settings);
         }
     }
   }
