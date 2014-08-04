@@ -144,6 +144,15 @@ morris-behaveLikeLine
 morris-formatter
 : Formatter
 
+morris-xkey
+: A string containing the name of the attribute that contains date (X) values. (See morris js docs for more details). xKey will default to first column if omitted.
+
+morris-ykeys
+: A list of strings containing names of attributes that contain Y values (one for each series of data to be plotted). yKeys will default to second column and beyond if omitted.
+
+morris-labels
+: A list of strings containing labels for the data series to be plotted (corresponding to the values in the ykeys option). Labels will be automatically generated if omitted.
+
 #### Data settings
 For more details on each option see https://github.com/lightswitch05/table-to-json
 
