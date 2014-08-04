@@ -49,6 +49,7 @@
           options.behaveLikeLine = table.data('morris-behaveLikeLine') ? true == table.data('morris-behaveLikeLine') : null;
           options.xkey = table.data('morris-xkey') ? table.data('morris-xkey') : null;
           options.ykeys = table.data('morris-ykeys') ? table.data('morris-ykeys').split(',') : [];
+          options.labels = table.data('morris-labels') ? table.data('morris-labels').split(',') : null;
 
           // Data settings
 
@@ -164,9 +165,26 @@
         }
 
         // Add required settings
-        settings.xkey = options.keys.shift();
-        settings.ykeys = options.keys;
-        settings.labels = options.keys;
+        if (null != options.xkey) {
+          settings.xkey = options.xkey;
+        }
+        else {
+          settings.xkey = options.keys.shift();
+        }
+
+        if ([] != options.ykeys) {
+          settings.ykeys = options.ykeys;
+        }
+        else {
+          settings.ykeys = options.keys;
+        }
+
+        if (null != options.labels) {
+          settings.labels = options.labels;
+        }
+        else {
+          settings.labels = settings.ykeys;
+        }
 
         new Morris.Bar(settings);
         break;
@@ -197,11 +215,27 @@
           settings.lineColors = options.colors;
         }
 
-
         // Add required settings
-        settings.xkey = options.keys.shift();
-        settings.ykeys = options.keys;
-        settings.labels = options.keys;
+        if (null != options.xkey) {
+          settings.xkey = options.xkey;
+        }
+        else {
+          settings.xkey = options.keys.shift();
+        }
+
+        if ([] != options.ykeys) {
+          settings.ykeys = options.ykeys;
+        }
+        else {
+          settings.ykeys = options.keys;
+        }
+
+        if (null != options.labels) {
+          settings.labels = options.labels;
+        }
+        else {
+          settings.labels = settings.ykeys;
+        }
 
         // @todo adjust line settings
         if (options.type == 'area') {
