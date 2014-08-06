@@ -172,7 +172,7 @@
           settings.xkey = options.keys.shift();
         }
 
-        if ([] != options.ykeys) {
+        if (options.ykeys.length > 0) {
           settings.ykeys = options.ykeys;
         }
         else {
