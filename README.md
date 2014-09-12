@@ -15,7 +15,7 @@ Usage
 ### Automatic
 1. Add the class "table-chart" to the wrapping element around your table
 2. Ensure the table_chart library is included
-    - drupal_add_library('table_chart', 'table_chart');
+    - drupal_add_library('table_chart', 'tabletochart');
 3. You have a chart!
 
 ### Views
@@ -33,8 +33,11 @@ Take any of the following options and preface with 'data-*'.
 Ex:
 
 ````
-<table class="table-chart" data-morris-type="line" data-morris-colors="red">...</table>
+<div class="table-chart">
+  <table data-morris-type="line" data-morris-colors="red">...</table>
+</div>
 ````
+
 
 Here are the available options:
 
