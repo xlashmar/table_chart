@@ -1,0 +1,5 @@
+name = Table to Chart Examples
+description = Example tables and charts using the Table to Chart module
+core = 7.x
+dependencies[] = table_chart
+dependencies[] = styleguide

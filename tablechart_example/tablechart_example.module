@@ -1,0 +1,44 @@
+<?php
+/**
+ * Table to Chart example
+ */
+
+function tablechart_example_styleguide() {
+  $items = array();
+
+  drupal_add_library('table_chart', 'tabletochart');
+
+  $items['tablechart_example_bar'] = array(
+    'title' => t('Bar Chart Table'),
+    'theme' => 'table',
+    'variables' => array(
+      'header' => array(t('Phone'), t('Sales')),
+      'rows' => array(
+        array('iPhone 4s', 5000000),
+        array('iPhone 5', 50000000),
+        array('iPhone 5s', 500000000),
+        array('iPhone 6', 5000000000),
+        array('iPhone 6+', 500000000000),
+      ),
+      'attributes' => array(
+        'class' => 'table-chart',
+        'data-morris-type' => 'bar',
+      ),
+    ),
+  );
+  /*
+  $items['tablechart_example_line'] = array(
+
+  );
+
+  $items['tablechart_example_area'] = array(
+
+  );
+
+  $items['tablechart_example_donut'] = array(
+
+  );
+*/
+
+  return $items;
+}
