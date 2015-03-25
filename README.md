@@ -156,6 +156,9 @@ morris-ykeys
 morris-labels
 : A list of strings containing labels for the data series to be plotted (corresponding to the values in the ykeys option). Labels will be automatically generated if omitted.
 
+morris-stacked
+: Set to true to draw bars stacked vertically.
+
 #### Data settings
 For more details on each option see https://github.com/lightswitch05/table-to-json
 

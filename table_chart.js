@@ -14,6 +14,7 @@
           var options = {};
           options.element = 'morris-chart-' + count;
           options.colors = table.data('morris-colors') ? table.data('morris-colors').split(',') : null;
+          options.stacked = table.data('morris-stacked') ? true == table.data('morris-stacked') : false;
           options.resize = table.data('morris-resize') ? true == table.data('morris-resize') : false;
           options.type = table.data('morris-type') ? table.data('morris-type') : 'line';
           options.lineWidth = table.data('morris-lineWidth') ? table.data('morris-lineWidth') : null;
@@ -135,6 +136,12 @@
         // Add optional settings
         if (null !== options.colors && options.colors != undefined) {
           settings.barColors = options.colors;
+        }
+        if (options.stacked) {
+            settings.stacked = options.stacked;
+        }
+        else {
+          settings.stacked = settings.stacked;
         }
         if (null !== options.hideHover) {
           settings.hideHover = options.hideHover;
