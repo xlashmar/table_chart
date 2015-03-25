@@ -5,8 +5,6 @@
       $('.table-chart').each(function(){
         count++;
         $(this).once(function(){
-          // @todo figure out how to find the table
-          // @todo figure out how to find the table settings
           var wrapper = $(this);
           var table = wrapper.find('table');
 
