@@ -93,6 +93,13 @@ function table_chart_preprocess_views_view_table(&$vars) {
 }
 
 /**
+* Implements hook_views_aggregator_results_table().
+*/
+function table_chart_preprocess_views_aggregator_results_table(&$vars) {
+  table_chart_preprocess_views_view_table($vars);
+}
+
+/**
  * Convert the attributes string into an array compatible with drupal_attributes
  *
  * @param string $attributes
@@ -110,7 +117,7 @@ function table_chart_attributes_keyed_array($attributes) {
     if (is_array($array)) {
       foreach ($array as $key => $value) {
         $keyed_attributes['data-' . $key] = $value;
-      }      
+      }
     }
   }
 
