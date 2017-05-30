@@ -8,49 +8,89 @@
           var wrapper = $(this);
           var table = wrapper.find('table');
 
-          // Chart settings
+          // Chart settings.
           var options = {};
           options.element = 'morris-chart-' + count;
-          options.colors = table.data('morris-colors') ? table.data('morris-colors').split(',') : null;
-          options.stacked = table.data('morris-stacked') ? true == table.data('morris-stacked') : false;
-          options.resize = table.data('morris-resize') ? true == table.data('morris-resize') : false;
-          options.type = table.data('morris-type') ? table.data('morris-type') : 'line';
-          options.lineWidth = table.data('morris-lineWidth') ? table.data('morris-lineWidth') : null;
-          options.pointSize = table.data('morris-pointSize') ? table.data('morris-pointSize') : null;
-          options.pointFillColors = table.data('morris-pointFillColors') ? table.data('morris-pointFillColors') : null;
-          options.pointStrokeColors = table.data('morris-pointStrokeColors') ? table.data('morris-pointStrokeColors') : null;
-          options.ymax = table.data('morris-ymax') ? table.data('morris-ymax') : null;
-          options.ymin = table.data('morris-ymin') ? table.data('morris-ymin') : null;
-          options.smooth = table.data('morris-smooth') ? true == table.data('morris-smooth') : true;
-          options.hideHover = table.data('morris-hideHover') ? table.data('morris-hideHover') : false;
-          options.hoverCallback = table.data('morris-hoverCallback') ? table.data('morris-hoverCallback') : null;
-          options.parseTime = table.data('morris-parseTime') ? true == table.data('morris-parseTime') : true;
-          options.postUnits = table.data('morris-postUnits') ? table.data('morris-postUnits') : null;
-          options.preUnits = table.data('morris-preUnits') ? table.data('morris-preUnits') : null;
-          options.dateFormat = table.data('morris-dateFormat') ? table.data('morris-dateFormat') : null;
-          options.xLabels = table.data('morris-xLabels') ? table.data('xLabels') : null;
-          options.xLabelFormat = table.data('morris-xLabelFormat') ? table.data('morris-xLabelFormat') : null;
-          options.yLabelFormat = table.data('morris-yLabelFormat') ? table.data('morris-yLabelFormat') : null;
-          options.goals = table.data('morris-goals') ? table.data('morris-goals').split(',') : null;
-          options.goalStrokeWidth = table.data('morris-goalStrokeWidth') ? table.data('morris-goalStrokeWidth') : null;
-          options.goalLineColors = table.data('morris-goalLineColors') ? table.data('morris-goalLineColors').split(',') : null;
-          options.events = table.data('morris-events') ? table.data('morris-events') : null;
-          options.eventStrokeWidth = table.data('morris-eventStrokeWidth') ? table.data('morris-eventStrokeWidth') : null;
-          options.eventLineColors = table.data('morris-eventLineColors') ? table.data('morris-eventLineColors').split(',') : null;
-          options.continuousLine = table.data('morris-continuousLine') ? table.data('morris-continuousLine') : null;
-          options.axes = table.data('morris-axes') ? true == table.data('morris-axes') : true;
-          options.grid = table.data('morris-grid') ? true == table.data('morris-grid') : true;
-          options.gridTextColor = table.data('morris-gridTextColor') ? table.data('morris-gridTextColor') : null;
-          options.gridTextSize = table.data('morris-gridTextSize') ? parseInt(table.data('morris-gridTextSize'), 10) : null;
-          options.gridTextFamily = table.data('morris-gridTextFamily') ? table.data('morris-gridTextFamily') : null;
-          options.gridTextWeight = table.data('morris-gridTextWeight') ? table.data('morris-gridTextWeight') : null;
-          options.fillOpacity = table.data('morris-fillOpacity') ? parseFloat(table.data('morris-fillOpacity')) : null;
-          options.behaveLikeLine = table.data('morris-behaveLikeLine') ? true == table.data('morris-behaveLikeLine') : null;
-          options.xkey = table.data('morris-xkey') ? table.data('morris-xkey') : null;
-          options.ykeys = table.data('morris-ykeys') ? table.data('morris-ykeys').split(',') : [];
-          options.labels = table.data('morris-labels') ? table.data('morris-labels').split(',') : null;
+          // List of settings along with their type and default value.
+          var optKeys = [
+            ['colors', 'array', null],
+            ['stacked', 'bool', false],
+            ['resize', 'bool', false],
+            ['type', 'str', 'line'],
+            ['lineWidth', 'str', null],
+            ['pointSize', 'str',null],
+            ['pointFillColors', 'str', null],
+            ['pointStrokeColors', 'str', null],
+            ['ymax', 'str', null],
+            ['ymin', 'str', null],
+            ['smooth', 'bool', true],
+            ['hideHover', 'bool', false],
+            ['hoverCallback', 'str', null],
+            ['parseTime', 'bool', true],
+            ['postUnits', 'str', null],
+            ['preUnits', 'str', null],
+            ['dateFormat', 'str', null],
+            ['xLabels', 'str', null],
+            ['xLabelFormat', 'str', null],
+            ['yLabelFormat', 'str', null],
+            ['goals', 'array', null],
+            ['goalStrokeWidth', 'str', null],
+            ['goalLineColors', 'array', null],
+            ['events', 'str', null],
+            ['eventStrokeWidth', 'str', null],
+            ['eventLineColors', 'array', null],
+            ['continuousLine', 'str', null],
+            ['axes', 'bool', true],
+            ['grid', 'bool', true],
+            ['gridTextColor', 'str', null],
+            ['gridTextSize', 'int', null],
+            ['gridTextFamily', 'str', null],
+            ['gridTextWeight', 'str', null],
+            ['fillOpacity', 'float', null],
+            ['behaveLikeLine', 'bool', null],
+            ['xkey', 'str', null],
+            ['ykeys', 'array', []],
+            ['labels', 'array', null]
+          ];
 
-          // Data settings
+          // Extract settings from data attributes if provided.
+          $.each(optKeys, function(idx, optData) {
+            var key = optData[0],
+                type = optData[1],
+                defaultValue = optData[2];
+
+            // Check for original camel case and lowercase data attribute names, as some browsers lowercase the attribute names.
+            var attrKey = null
+            if (table.data('morris-' + key)) {
+              attrKey = key;
+            }
+            else if (table.data('morris-' + key.toLowerCase())) {
+              attrKey = key.toLowerCase();
+            }
+
+            if (attrKey !== null) {
+              if (type == 'str') {
+                options[key] = table.data('morris-' + attrKey);
+              }
+              else if (type == 'bool') {
+                options[key] = !!table.data('morris-' + attrKey);
+              }
+              else if (type == 'int') {
+                options[key] = parseInt(table.data('morris-' + attrKey), 10);
+              }
+              else if (type == 'float') {
+                options[key] = parseFloat(table.data('morris-' + attrKey));
+              }
+              else if (type == 'array') {
+                options[key] = table.data('morris-' + attrKey).split(',');
+              }
+            }
+            else {
+              options[key] = defaultValue;
+            }
+          });
+
+          // Data settings.
 
           // Ignoring the first column (i.e. 0) has some odd behavior. Zero (0)
           // being misinterpreted as the emtpy array value. So we treat this
