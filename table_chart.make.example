@@ -9,7 +9,7 @@ libraries[morrisjs][type] = "library"
 
 ;; RaphaelJS
 libraries[raphael][download][type] = "get"
-libraries[raphael][download][url] = "http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael-min.js"
+libraries[raphael][download][url] = "https://raw.githubusercontent.com/DmitryBaranovskiy/raphael/master/raphael.min.js"
 libraries[raphael][directory_name] = "raphael"
 libraries[raphael][type] = "library"
 
