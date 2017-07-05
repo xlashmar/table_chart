@@ -30,7 +30,7 @@ function table_chart_library() {
     'version' => '2.1.2',
     'website' => 'http://raphaeljs.com/',
     'js' => array(
-      libraries_get_path('raphael') . '/raphael-min.js' => array(
+      libraries_get_path('raphael') . '/raphael.min.js' => array(
         'scope' => 'footer',
       ),
     ),
