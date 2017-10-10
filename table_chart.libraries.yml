@@ -1,0 +1,39 @@
+tabletochart:
+  version: 1.0
+  js:
+    table_chart.js: {}
+  dependencies:
+    - morrisjs
+    - tabletojson
+raphaeljs:
+  remote: http://raphaeljs.com
+  version: 2.1.2
+  license:
+    name: MIT
+    url: https://raw.githubusercontent.com/DmitryBaranovskiy/raphael/master/license.txt
+    gpl-compatible: true
+  js:
+    raphael-min.js: { minified: true }
+morrisjs:
+  remote: http://www.oesmith.co.uk/morris.js
+  version: 0.4.3
+  license:
+    name: MIT
+    gpl-compatible: true
+  js:
+    morris.min.js: { minified: true }
+  css:
+    theme:
+      morris.css: {}
+  dependencies:
+    - table_chart
+    - raphaeljs
+tabletojson:
+  remote: http://lightswitch05.github.io/table-to-json
+  version: 0.6
+  license:
+    name: MIT
+    url: https://raw.githubusercontent.com/lightswitch05/table-to-json/master/MIT-LICENSE
+    gpl-compatible: true
+  js:
+    lib/jquery.tabletojson.min.js: { minified: true }

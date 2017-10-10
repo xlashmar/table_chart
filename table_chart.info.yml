@@ -1,0 +1,9 @@
+name: Table to Chart
+description: Display tabular data as a chart with Morris.js
+package: Views
+type: module
+version: 1.0
+core: 8.x
+dependencies:
+  - drupal:views
+  - libraries
