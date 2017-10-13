@@ -19,7 +19,7 @@
     "require": {
         "sheillendra/raphael": "~2.1.2",
         "morrisjs/morris.js": "0.4.3"
-    }
+    },
     "extra": {
         "installer-types": ["library"],
         "installer-paths": {
