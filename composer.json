@@ -27,7 +27,7 @@
                 "type:drupal-library",
                 "sheillendra/raphael",
                 "morrisjs/morris.js"
-            ],
+            ]
         }
     }
 }
