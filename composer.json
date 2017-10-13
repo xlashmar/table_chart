@@ -8,7 +8,7 @@
             "name": "Mathew Winstone (minorOffense)",
             "homepage": "https://www.drupal.org/u/minoroffense",
             "role": "Maintainer"
-        },
+        }
     ],
     "support": {
         "issues": "https://www.drupal.org/project/issues/table_chart",
