@@ -17,8 +17,8 @@
     "license": "GPL-2.0+",
     "minimum-stability": "dev",
     "require": {
-        "sheillendra/raphael": "~2.1.2",
-        "morrisjs/morris.js": "0.4.3"
+        "sheillendra/raphael": "*",
+        "morrisjs/morris.js": "*"
     },
     "extra": {
         "installer-types": ["library"],
