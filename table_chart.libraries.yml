@@ -5,6 +5,10 @@ tabletochart:
   dependencies:
     - morrisjs
     - tabletojson
+    - core/drupal
+    - core/jquery
+    - core/core-min
+    - core/jquery.once
 raphaeljs:
   remote: http://raphaeljs.com
   version: 2.1.2
@@ -14,6 +18,9 @@ raphaeljs:
     gpl-compatible: true
   js:
     raphael-min.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/jquery
 morrisjs:
   remote: http://www.oesmith.co.uk/morris.js
   version: 0.4.3
@@ -28,6 +35,8 @@ morrisjs:
   dependencies:
     - table_chart
     - raphaeljs
+    - core/drupal
+    - core/jquery
 tabletojson:
   remote: http://lightswitch05.github.io/table-to-json
   version: 0.6
@@ -37,3 +46,6 @@ tabletojson:
     gpl-compatible: true
   js:
     lib/jquery.tabletojson.min.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/jquery
