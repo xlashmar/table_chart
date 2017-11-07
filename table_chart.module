@@ -1,108 +1,21 @@
 <?php
 
 /**
- * Implements hook_libraries_info().
+ * Implements hook_views_pre_render().
  */
-function table_chart_libraries_info() {
+function table_chart_views_pre_render(\Drupal\views\ViewExecutable $view) {
+  // Get the views extenders to see if the table_chart extension exist.
+  $extender = $view->display_handler->getExtenders();
+  if (isset($extender['table_chart']->options['charting_library'])) {
+    $charting_library = $extender['table_chart']->options['charting_library'];
 
-  // I dont think we need this function.
-  $libraries['raphaeljs'] = [
-    'name' => 'Raphael',
-    'vendor url' => 'http://raphaeljs.com/',
-    'download url' => 'https://github.com/DmitryBaranovskiy/raphael',
-    'version arguments' => [
-      'file' => 'raphael.js',
-      'pattern' => '/Raphaël (\d+\.+\d+(\.+\d+)?)/',
-      'lines' => 2,
-    ],
-    'files' => [
-      'js' => [
-        'raphael.min.js',
-      ],
-    ],
-  ];
+    // Attached the libraries needed for that charing library.
+    $view->element['#attached']['library'][] = 'table_chart/tabletochart';
+    $view->element['#attached']['library'][] = 'table_chart/raphaeljs';
+    $view->element['#attached']['library'][] = 'table_chart/tabletojson';
+    $view->element['#attached']['library'][] = 'table_chart/' . $charting_library;
 
-  $libraries['morrisjs'] = [
-    'name' => 'Morris js',
-    'vendor url' => 'http://morrisjs.github.io/morris.js/',
-    'download url' => 'https://github.com/morrisjs/morris.js',
-    'version arguments' => [
-      'file' => 'morris.js',
-      'pattern' => '/morris.js v(\d+\.+\d+(\.+\d+)?)/',
-      'lines' => 2,
-    ],
-    'files' => [
-      'js' => [
-        'morris.min.js',
-      ],
-      'css' => [
-        'morris.css',
-      ],
-    ],
-  ];
-
-  $libraries['tabletojson'] = [
-    'name' => 'Table to JSON',
-    'vendor url' => 'http://www.developerdan.com/table-to-json/',
-    'download url' => 'https://github.com/lightswitch05/table-to-json',
-    'version arguments' => [
-      'file' => 'lib/jquery.tabletojson.js',
-      'pattern' => '/@version (\d+\.+\d+(\.+\d+)?)/',
-      'lines' => 2,
-    ],
-    'files' => [
-      'js' => [
-        'lib/jquery.tabletojson.min.js',
-      ],
-    ],
-  ];
-
-  return $libraries;
-}
-
-/**
- * Implements hook_page_attachments().
- */
-function table_chart_page_attachments(array &$page) {
-  // Attach these libraries to the page, we can probably optomize this to only the vies that implements the table charts.
-  $page['#attached']['library'][] = 'table_chart/tabletochart';
-  $page['#attached']['library'][] = 'table_chart/raphaeljs';
-  $page['#attached']['library'][] = 'table_chart/morrisjs';
-  $page['#attached']['library'][] = 'table_chart/tabletojson';
-}
-
-/**
- * Implements hook_library_info_alter().
- */
-function table_chart_library_info_alter(&$libraries, $extension) {
-  $fix_library_path = array(
-    'raphaeljs',
-    'morrisjs',
-    'tabletojson',
-  );
-
-  foreach ($fix_library_path as $library_name) {
-    if (isset($libraries[$library_name])) {
-      $library_path = libraries_get_path($library_name);
-
-      if (strpos($library_path, '/') !== 0) {
-        $library_path = '/' . $library_path;
-      }
-      // Fix the JS paths for the library, since these are external libraries we need to do this ?
-      if (isset($libraries[$library_name]['js'])) {
-        foreach ($libraries[$library_name]['js'] as $js_name => $js) {
-          $libraries[$library_name]['js'][$library_path . '/' . $js_name] = $libraries[$library_name]['js'][$js];
-          unset($libraries[$library_name]['js'][$js_name]);
-        }
-      }
-      // Fix the css paths for the library, since these are external libraries we need to do this ?
-      if (isset($libraries[$library_name]['css'])) {
-        foreach ($libraries[$library_name]['css'] as $css_name => $css) {
-          $libraries[$library_name]['css'][$library_path . '/' . $css_name] = $libraries[$library_name]['css'][$css];
-          unset($libraries[$library_name]['css'][$css_name]);
-        }
-      }
-    }
+    $view->element['#attached']['drupalSettings']['table_chart']['charting_library'] = $charting_library;
   }
 }
 
@@ -111,7 +24,7 @@ function table_chart_library_info_alter(&$libraries, $extension) {
  */
 function table_chart_preprocess_views_view_table(&$vars) {
   if (!empty($vars['view'])) {
-    $attributes = $vars['view']->display_handler->options['display_extenders']['attributes']['attributes'];
+    $attributes = $vars['view']->display_handler->options['display_extenders']['table_chart']['attributes'];
     $attributes = table_chart_attributes_keyed_array($attributes);
     if (!empty($attributes)) {
       $vars['attributes'] = array_merge($vars['attributes'], $attributes);
@@ -131,7 +44,7 @@ function table_chart_attributes_keyed_array($attributes) {
   $tmp = explode("\n", $attributes);
   $tmp = array_filter($tmp, 'trim');
 
-  $keyed_attributes = array();
+  $keyed_attributes = [];
   foreach ($tmp as $attribute) {
     parse_str($attribute, $array);
     if (is_array($array)) {
@@ -142,4 +55,14 @@ function table_chart_attributes_keyed_array($attributes) {
   }
 
   return $keyed_attributes;
+}
+
+/**
+ * Callback function to fetch the list of charting library installed.
+ */
+function table_chart_current_installed_charting_library() {
+  // check if current 2 libraries that are supported are installed.
+  $options = ['_none' => t('None')];
+  $options = array_merge($options, ['chartist' => t('Chartist'), 'morrisjs' => t('Morrisjs')]);
+  return $options;
 }
