@@ -8,30 +8,31 @@ function table_chart_requirements($phase) {
 
   // Check to see if the flexslider library is available.
   if ($phase == 'runtime') {
-    $libraries = array('raphaeljs', 'morrisjs', 'tabletojson');
+    $libraries = array('raphaeljs', 'tabletojson');
     foreach ($libraries as $lib) {
-      $library = libraries_detect($lib);
-      // TODO: fix this.
-      if ($library && !empty($library['installed'])) {
-        if ($library['version']) {
-          $description = t('Version %i installed', ['%i' => $library['version']]);
-        }
-        else {
-          $description = t('Unable to detect version.');
-        }
-        $requirements[$lib] = [
-          'title' => $lib,
-          'description' => $description,
-          'severity' => REQUIREMENT_OK,
-        ];
-      }
-      else {
-        $requirements[$lib] = [
-          'title' => $lib,
-          'description' => t('@lib library not found. Please consult the README.md for installation instructions.', array('@lib' => $lib)),
-          'severity' => REQUIREMENT_ERROR,
-        ];
-      }
+      // Check if the libraries js files exist.
+      //$installed_library = drupal_get_library('table_chart', $lib);
+      //kint($installed_library);
+      // if ($library && !empty($library['installed'])) {
+      //   if ($library['version']) {
+      //     $description = t('Version %i installed', ['%i' => $library['version']]);
+      //   }
+      //   else {
+      //     $description = t('Unable to detect version.');
+      //   }
+      //   $requirements[$lib] = [
+      //     'title' => $lib,
+      //     'description' => $description,
+      //     'severity' => REQUIREMENT_OK,
+      //   ];
+      // }
+      // else {
+      //   $requirements[$lib] = [
+      //     'title' => $lib,
+      //     'description' => t('@lib library not found. Please consult the README.md for installation instructions.', array('@lib' => $lib)),
+      //     'severity' => REQUIREMENT_ERROR,
+      //   ];
+      // }
     }
   }
   return $requirements;

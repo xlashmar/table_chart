@@ -5,6 +5,7 @@ tabletochart:
   dependencies:
     - morrisjs
     - tabletojson
+    - core/drupalSettings
 raphaeljs:
   remote: http://raphaeljs.com
   version: 2.1.2
@@ -13,21 +14,7 @@ raphaeljs:
     url: https://raw.githubusercontent.com/DmitryBaranovskiy/raphael/master/license.txt
     gpl-compatible: true
   js:
-    raphael-min.js: { minified: true }
-morrisjs:
-  remote: http://www.oesmith.co.uk/morris.js
-  version: 0.4.3
-  license:
-    name: MIT
-    gpl-compatible: true
-  js:
-    morris.min.js: { minified: true }
-  css:
-    theme:
-      morris.css: {}
-  dependencies:
-    - table_chart
-    - raphaeljs
+    /libraries/raphaeljs/raphael-min.js: { minified: true }
 tabletojson:
   remote: http://lightswitch05.github.io/table-to-json
   version: 0.6
@@ -36,4 +23,34 @@ tabletojson:
     url: https://raw.githubusercontent.com/lightswitch05/table-to-json/master/MIT-LICENSE
     gpl-compatible: true
   js:
-    lib/jquery.tabletojson.min.js: { minified: true }
+    /libraries/tabletojson/lib/jquery.tabletojson.min.js: { minified: true }
+chartist:
+  remote: https://gionkunz.github.io/chartist-js/
+  version: 0.9.4
+  license:
+    name: MIT
+    url: https://github.com/jssor/slider/blob/master/MIT-LICENSE.txt
+    gpl-compatible: true
+  js:
+    /libraries/chartist/dist/chartist.min.js: {}
+  css:
+    component:
+      /libraries/chartist/dist/chartist.min.css: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+morrisjs:
+  remote: http://www.oesmith.co.uk/morris.js
+  version: 0.4.3
+  license:
+    name: MIT
+    gpl-compatible: true
+  js:
+    /libraries/morrisjs/morris.min.js: { minified: true }
+  css:
+    theme:
+      /libraries/morrisjs/morris.css: {}
+  dependencies:
+    - table_chart
+    - raphaeljs
