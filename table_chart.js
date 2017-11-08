@@ -7,10 +7,10 @@
         $(this).once('.table-chart').each(function(){
           var wrapper = $(this);
           var table = wrapper.find('table');
+          var chartLibrary = table.data('charting-library');
 
-          var charting_library = drupalSettings.table_chart.charting_library;
           // Check if the charting library and based on that formulate the table from the json object to how we can formulate it.
-          switch(charting_library) {
+          switch(chartLibrary) {
             case 'chartist':
               chartist(wrapper, table, count);
               break;
@@ -103,11 +103,12 @@
     ];
 
     options = generateOptionsList(optKeys, table, 'chartist');
+    options.element = 'chartist-chart-' + count;
 
     // Prepare display
     table.addClass('hidden');
 
-    wrapper.append('<div class="table-chart-chartist-div"></div>');
+    wrapper.append('<div id="' + options.element + '" class="table-chart-chartist-div"></div>');
     // Create a new line chart object where as first parameter we pass in a selector
     // that is resolving to our chart container element. The Second parameter
     // is the actual data object.
@@ -120,17 +121,17 @@
 
     switch(chartType.toLowerCase()) {
       case 'bar':
-        new Chartist.Bar('.table-chart-chartist-div', data, options);
+        new Chartist.Bar('#' + options.element, data, options);
         break;
       case 'line':
-        new Chartist.Line('.table-chart-chartist-div', data, options);
+        new Chartist.Line('#' + options.element, data, options);
         break;
       case 'pie':
         // The pie data is formulated differently.
         var pie_data = {
           series: data_series[0],
         };
-        new Chartist.Pie('.table-chart-chartist-div', pie_data, options);
+        new Chartist.Pie('#' + options.element, pie_data, options);
         break;
     }
   }
