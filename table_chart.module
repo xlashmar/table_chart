@@ -14,8 +14,6 @@ function table_chart_views_pre_render(\Drupal\views\ViewExecutable $view) {
     $view->element['#attached']['library'][] = 'table_chart/raphaeljs';
     $view->element['#attached']['library'][] = 'table_chart/tabletojson';
     $view->element['#attached']['library'][] = 'table_chart/' . $charting_library;
-
-    $view->element['#attached']['drupalSettings']['table_chart']['charting_library'] = $charting_library;
   }
 }
 
@@ -24,8 +22,15 @@ function table_chart_views_pre_render(\Drupal\views\ViewExecutable $view) {
  */
 function table_chart_preprocess_views_view_table(&$vars) {
   if (!empty($vars['view'])) {
-    $attributes = $vars['view']->display_handler->options['display_extenders']['table_chart']['attributes'];
-    $attributes = table_chart_attributes_keyed_array($attributes);
+    $table_chart_config = $vars['view']->display_handler->options['display_extenders']['table_chart'];
+
+    $attributes = table_chart_attributes_keyed_array($table_chart_config['attributes']);
+
+    // set the data attribute to what charting library to use on this chart.
+    if (isset($table_chart_config['charting_library'])) {
+      $attributes['data-charting-library'] = $table_chart_config['charting_library'];
+    }
+
     if (!empty($attributes)) {
       $vars['attributes'] = array_merge($vars['attributes'], $attributes);
     }
