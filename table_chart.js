@@ -133,7 +133,6 @@
   function morrisJs(wrapper, table, count) {
     // Chart settings.
     var options = {};
-    options.element = 'morris-chart-' + count;
     // List of settings along with their type and default value.
     var optKeys = [
       ['colors', 'array', null],
@@ -177,7 +176,7 @@
     ];
 
     options = generateOptionsList(optKeys, table, 'morris');
-
+    options.element = 'morris-chart-' + count;
     // Data settings.
 
     // Ignoring the first column (i.e. 0) has some odd behavior. Zero (0)
