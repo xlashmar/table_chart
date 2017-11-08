@@ -9,6 +9,7 @@ tabletochart:
     - core/jquery.once
     - morrisjs
     - tabletojson
+    - raphaeljs
 raphaeljs:
   remote: http://raphaeljs.com
   version: 2.1.2

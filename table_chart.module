@@ -11,8 +11,6 @@ function table_chart_views_pre_render(\Drupal\views\ViewExecutable $view) {
 
     // Attached the libraries needed for that charing library.
     $view->element['#attached']['library'][] = 'table_chart/tabletochart';
-    $view->element['#attached']['library'][] = 'table_chart/raphaeljs';
-    $view->element['#attached']['library'][] = 'table_chart/tabletojson';
     $view->element['#attached']['library'][] = 'table_chart/' . $charting_library;
   }
 }
