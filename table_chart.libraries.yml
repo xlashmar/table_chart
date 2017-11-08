@@ -3,6 +3,10 @@ tabletochart:
   js:
     table_chart.js: {}
   dependencies:
+    - core/drupal
+    - core/jquery
+    - core/core-min
+    - core/jquery.once
     - morrisjs
     - tabletojson
     - core/drupalSettings
