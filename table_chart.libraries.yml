@@ -7,9 +7,8 @@ tabletochart:
     - core/jquery
     - core/core-min
     - core/jquery.once
-    - morrisjs
-    - tabletojson
-    - raphaeljs
+    - table_chart/tabletojson
+    - table_chart/raphaeljs
 raphaeljs:
   remote: http://raphaeljs.com
   version: 2.1.2
@@ -41,9 +40,6 @@ chartist:
     component:
       /libraries/chartist/dist/chartist.min.css: {}
   dependencies:
-    - core/drupal
-    - core/drupalSettings
-    - core/jquery.once
 morrisjs:
   remote: http://www.oesmith.co.uk/morris.js
   version: 0.4.3
@@ -55,6 +51,4 @@ morrisjs:
   css:
     theme:
       /libraries/morrisjs/morris.css: {}
-  dependencies:
-    - table_chart
-    - raphaeljs
+
