@@ -112,6 +112,12 @@
     // that is resolving to our chart container element. The Second parameter
     // is the actual data object.
     var chartType = table.data('chartist-type');
+
+    // If the variable was not set the default to line chart type.
+    if (typeof chartType == 'undefined') {
+      chartType = 'line';
+    }
+
     switch(chartType.toLowerCase()) {
       case 'bar':
         new Chartist.Bar('.table-chart-chartist-div', data, options);
