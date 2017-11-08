@@ -1,13 +1,16 @@
 Table to Chart
 ==============
 
-Convert a table of data to a chart with Morris.js
+Convert a table of data to a chart be used with a charting library
+
+### Current supported libraries
+ Morris.js
+ Chartist
 
 Installation
 ------------
 
 There are three external libraries required. The libraries should be placed in your "libraries" directory.
-See the example make file for more information.
 
 Make sure to enable the display extender attributes in views.
 
@@ -18,13 +21,15 @@ Usage
 
 ### Automatic
 1. Add the class "table-chart" to the wrapping element around your table
-2. Ensure the table_chart library is included
-    - drupal_add_library('table_chart', 'tabletochart');
+2. Ensure the table_chart library is attached to your page.
+    ['#attached']['library'][] = 'table_chart/tabletochart'
+    ['#attached']['library'][] = 'table_chart/' NAME OF CHARING LIBRARY (chartist, morrijs)
 3. You have a chart!
 
 ### Views
 1. Use the Views to generate your table
 2. Add the class "table-chart" to your view
+3. Set the charting library to use in the Advanced/Other section, set the "Charting library"
 3. You have a chart!
 
 ### Data Attributes
@@ -43,7 +48,7 @@ Ex:
 
 Here are the available options:
 
-#### Chart settings
+#### Morris JS Chart settings
 morris-type
 : The type of chart: Options include bar, line, donut and area. Default is line.
 
@@ -175,3 +180,40 @@ tabletojson-ignoreHiddenRows
 
 tabletojson-headings
 : Comma separated list of headings to use. See https://github.com/lightswitch05/table-to-json for more details.
+
+
+#### Chartist JS Chart settings
+chartist-type
+: Available Options, bar, line, pie
+low
+high
+width
+height
+seriesBarDistance
+referenceValue
+stackBars
+stackMode
+horizontalBars
+distributeSeries
+reverseData
+showGridBackground
+showLine
+showPoint
+showArea
+areaBase
+lineSmooth
+showGridBackground
+fullWidth
+reverseData
+chartPadding
+startAngle
+total
+donut
+donutSolid
+donutWidth
+showLabel
+labelOffset
+labelPosition
+labelDirection
+reverseData
+ignoreEmptyValues
