@@ -24,7 +24,7 @@ function table_chart_preprocess_views_view_table(&$vars) {
 
     $attributes = table_chart_attributes_keyed_array($table_chart_config['attributes']);
 
-    // set the data attribute to what charting library to use on this chart.
+    // Set the data attribute to what charting library to use on this chart.
     if (isset($table_chart_config['charting_library'])) {
       $attributes['data-charting-library'] = $table_chart_config['charting_library'];
     }
@@ -56,7 +56,6 @@ function table_chart_attributes_keyed_array($attributes) {
       }
     }
   }
-
   return $keyed_attributes;
 }
 
@@ -66,6 +65,7 @@ function table_chart_attributes_keyed_array($attributes) {
 function table_chart_current_installed_charting_library() {
   // check if current 2 libraries that are supported are installed.
   $options = ['_none' => t('None')];
+  // TODO: Make this more dynamic by checking if the libraries are actually installed.
   $options = array_merge($options, ['chartist' => t('Chartist'), 'morrisjs' => t('Morrisjs')]);
   return $options;
 }

@@ -6,13 +6,12 @@
 function table_chart_requirements($phase) {
   $requirements = [];
 
-  // Check to see if the flexslider library is available.
+  // Check to see if the libraries are available.
   if ($phase == 'runtime') {
     $libraries = array('raphaeljs', 'tabletojson');
     foreach ($libraries as $lib) {
-      // Check if the libraries js files exist.
+      // Check if the libraries files exist.
       //$installed_library = drupal_get_library('table_chart', $lib);
-      //kint($installed_library);
       // if ($library && !empty($library['installed'])) {
       //   if ($library['version']) {
       //     $description = t('Version %i installed', ['%i' => $library['version']]);
