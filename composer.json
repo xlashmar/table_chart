@@ -1,0 +1,33 @@
+{
+    "name": "drupal/table_chart",
+    "description": "Drupal table to chart module, converts html tables to morrisjs charts.",
+    "type": "drupal-module",
+    "homepage": "https://www.drupal.org/project/table_chart",
+    "authors": [
+        {
+            "name": "Mathew Winstone (minorOffense)",
+            "homepage": "https://www.drupal.org/u/minoroffense",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/table_chart",
+        "source": "http://cgit.drupalcode.org/table_chart"
+    },
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev",
+    "require": {
+        "sheillendra/raphael": "*",
+        "morrisjs/morris.js": "*"
+    },
+    "extra": {
+        "installer-types": ["library"],
+        "installer-paths": {
+            "libraries/{$name}": [
+                "type:drupal-library",
+                "sheillendra/raphael",
+                "morrisjs/morris.js"
+            ]
+        }
+    }
+}
