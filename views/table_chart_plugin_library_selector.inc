@@ -22,20 +22,19 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
   }
 
   function options_form(&$form, &$form_state) {
+    $options = array(
+      'morrisjs' => t('Use the MorrisJS library to generate your charts.'), 
+      'chartistjs' => t('Use the ChartistJS library to generate your charts.'),
+    );
     if ($form_state['section'] == 'chartlib_selector') {
       $form['#title'] .= t('Data chartlib added to the display wrapper.');
       $chartlib_selector = $this->display->get_option('chartlib_selector');
-      $form['chartlib1'] = array(
-        '#type' => 'radio',
-        '#title' => t('MorrisJS'),
-        '#description' => t('Use the MorrisJS library to generate your charts.'),
-        '#default_value' => $chartlib_selector,
-      );
-      $form['chartlib2'] = array(
-        '#type' => 'radio',
-        '#title' => t('ChartistJS'),
-        '#description' => t('Add one data attribute per line. The data-* will automatically be prepended to your attribute definition. Leave out the wrapping quotes around the value since Drupal will add those automatically. (e.g. mydata=custom data turns into data-mydata="custom data")'),
-        '#default_value' => $chartlib_selector,
+      $form['chartlibselector'] = array(
+        '#type' => 'radios',
+        '#title' => t('Select a chart library'),
+        '#options' => $options,
+        '#description' => t('The chart library is the engine that you can use to generate charts with the given data from the views.  Note that the libraries should be installed.'),
+        '#default_value' => $options['morrisjs'],
       );
     }
   }
