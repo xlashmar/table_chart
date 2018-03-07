@@ -55,6 +55,26 @@ function table_chart_library() {
       array('table_chart', 'raphaeljs'),
     ),
   );
+  // Chartist.js
+  $libraries['chartistjs'] = array(
+    'title' => 'Chartist.js',
+    'version' => '0.11.0',
+    'website' => 'http://gionkunz.github.io/chartist-js/',
+    'js' => array(
+      libraries_get_path('chartist-js') . 'dist/chartist.min.js' => array(
+        'scope' => 'footer',
+      ),
+    ),
+    'css' => array(
+      libraries_get_path('chartist-js') . '/chartist.css' => array(
+        'type' => 'file',
+      ),
+    ),
+    'dependencies' => array(
+      // Require jQuery UI core by System module.
+      array('table_chart', 'raphaeljs'),
+    ),
+  );
   // Table to JSON.
   $libraries['tabletojson'] = array(
     'title' => 'Table to JSON',
