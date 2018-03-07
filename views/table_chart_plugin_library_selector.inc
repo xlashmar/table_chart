@@ -28,7 +28,7 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
       $form['chartlib1'] = array(
         '#type' => 'radio',
         '#title' => t('MorrisJS'),
-        '#description' => t('Add one data attribute per line. The data-* will automatically be prepended to your attribute definition. Leave out the wrapping quotes around the value since Drupal will add those automatically. (e.g. mydata=custom data turns into data-mydata="custom data")'),
+        '#description' => t('Use the MorrisJS library to generate your charts.'),
         '#default_value' => $chartlib_selector,
       );
       $form['chartlib2'] = array(
