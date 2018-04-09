@@ -16,7 +16,7 @@ function table_chart_views_plugins() {
     'handler' => 'table_chart_plugin_display_extender_attributes',
     'enabled' => TRUE,
   );
-  $plugins['chart_library']['library_selector'] = array(
+  $plugins['display_extender']['library_selector'] = array(
     'title' => t('chartlibrary'),
     'help' => t('Allows table chart library to be selected'),
     'handler' => 'table_chart_plugin_library_selector',
