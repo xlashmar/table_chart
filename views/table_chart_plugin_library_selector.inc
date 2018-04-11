@@ -40,8 +40,9 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
   }
 
   function options_submit(&$form, &$form_state) {
+    drupal_set_message("Target Dir: ".$form_state['section']);
     if ($form_state['section'] == 'chartlib_selector') {
-      $chartlib_selector = $form_state['values']['chartlib'];
+      $chartlib_selector = $form_state['values']['chartlibselector'];
       $this->display->set_option('chartlib_selector', $chartlib_selector);
     }
   }
