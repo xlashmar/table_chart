@@ -29,6 +29,7 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
     if ($form_state['section'] == 'chartlib_selector') {
       $form['#title'] .= t('Data chartlib added to the display wrapper.');
       $chartlib_selector = $this->display->get_option('chartlib_selector');
+      drupal_set_message("Get Option: ".$chartlib_selector);
       $form['chartlibselector'] = array(
         '#type' => 'radios',
         '#title' => t('Select a chart library'),
@@ -39,8 +40,7 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
     }
   }
 
-  function options_submit(&$form, &$form_state) {
-    drupal_set_message("Target Dir: ".$form_state['values']['chartlibselector']);
+  function options_submit(&$form, &$form_state) {    
     if ($form_state['section'] == 'chartlib_selector') {
       $chartlib_selector = $form_state['values']['chartlibselector'];
       $this->display->set_option('chartlib_selector', $chartlib_selector);
