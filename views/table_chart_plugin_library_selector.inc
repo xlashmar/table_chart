@@ -6,11 +6,12 @@
  */
 
 class table_chart_plugin_library_selector extends views_plugin_display_extender {
-  // this is a testviews_plugin_display_extender x
+  
   function options_definition_alter(&$options) {
       $options['chartlib_selector'] = array('default' => array());
   }
   
+  // Display the form summary as well as the selected library
   function options_summary(&$categories, &$options) {
     $chartlib_selector = $this->display->get_option('chartlib_selector');
     $options['chartlib_selector'] = array(
@@ -21,10 +22,14 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
     );
   }
 
+  // Display the form itself
   function options_form(&$form, &$form_state) {
     $options = array(
-      'morrisjs' => t('Use the MorrisJS library to generate your charts.'), 
-      'chartistjs' => t('Use the ChartistJS library to generate your charts.'),
+      'chartistjs' => t('Use the Chartist.js library to generate your charts.'),
+      'morrisjs' => t('Use the Morris.js library to generate your charts.'), 
+      'raphaeljs' => t('Use the Raphael library to generate your charts.'), 
+      'tabletochart' => t('Use the Table to Chart library to generate your charts.'), 
+      'tabletojson' => t('Use the Table to JSON library to generate your charts.'), 
     );
     if ($form_state['section'] == 'chartlib_selector') {
       $form['#title'] .= t('Data chartlib added to the display wrapper.');
@@ -40,6 +45,7 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
     }
   }
 
+  // Action on form submit
   function options_submit(&$form, &$form_state) {    
     if ($form_state['section'] == 'chartlib_selector') {
       $chartlib_selector = $form_state['values']['chartlibselector'];
