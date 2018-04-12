@@ -17,7 +17,7 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
       'category' => 'other',
       'title' => t('Chart Library Selector'),
       'description' => t('Add data chartlib to your display wrapper and fields.'),
-      'value' => !empty($chartlib_selector) ? t('chartlib added'): t('None'),
+      'value' => !empty($chartlib_selector) ? t($chartlib_selector): t('None'),
     );
   }
 
@@ -35,7 +35,7 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
         '#title' => t('Select a chart library'),
         '#options' => $options,
         '#description' => t('The chart library is the engine that you can use to generate charts with the given data from the views.  Note that the libraries should be installed.'),
-        '#default_value' => 0,
+        '#default_value' => $options[$chartlib_selector],
       );
     }
   }
