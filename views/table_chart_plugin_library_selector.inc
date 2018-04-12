@@ -7,6 +7,7 @@
 
 class table_chart_plugin_library_selector extends views_plugin_display_extender {
   
+  # test commit
   function options_definition_alter(&$options) {
       $options['chartlib_selector'] = array('default' => array());
   }
