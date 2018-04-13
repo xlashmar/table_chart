@@ -103,12 +103,25 @@ function table_chart_views_api() {
  * Implements hook_preprocess_views_view_table().
  */
 function table_chart_preprocess_views_view_table(&$vars) {
+  dpm("We are getting here...");
+  $chatlib = $vars['view']->display_handler->get_option('chartlib_selector');
+
   if (!empty($vars['view'])) {
+
     $attributes = $vars['view']->display_handler->get_option('attributes');
-    $attributes = table_chart_attributes_keyed_array($attributes);
+    //$attributes = table_chart_attributes_keyed_array($attributes);
+
+    // Set the data attribute to what charting library to use on this chart.
+    if (isset($table_chart_config['charting_library'])) {
+      $attributes['data-charting-library'] = $table_chart_config['charting_library'];
+    }
+    //dpm($attributes['data-charting-library']);
+    dpm($vars['view']->display_handler->get_option('attributes'));
+
     if (!empty($attributes)) {
       $vars['attributes_array'] = $vars['attributes_array'] + $attributes;
     }
+
   }
 }
 

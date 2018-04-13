@@ -24,6 +24,7 @@ function tablechart_example_page() {
   $output = '';
 
   // Add the required libraries
+  //drupal_add_library('table_chart', 'tabletochart');
   drupal_add_library('table_chart', 'tabletochart');
 
   $tables = tablechart_example_tables();
