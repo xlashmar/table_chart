@@ -41,7 +41,6 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
         '#options' => $options,
         '#description' => t('The chart library is the engine that you can use to generate charts with the given data from the views.  Note that the libraries should be installed.'),
         '#default_value' => !empty($chartlib_selector) ? t($chartlib_selector): t('None'),
-        //'#value' => !empty($chartlib_selector) ? t($chartlib_selector): t('None'),
       );
     }
   }
