@@ -14,19 +14,18 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
    * {@inherit}
    */
   public function options_definition_alter(&$options) {
-    $options['chartlib_selector'] = array('default' => array());
+    $options['chartlib_selector'] = array('morrisjs' => t('Use the Morris.js library to generate your charts.'));
   }
 
   /**
    * {@inherit}
    */
   public function options_summary(&$categories, &$options) {
-    $chartlib_selector = $this->display->get_option('chartlib_selector');
     $options['chartlib_selector'] = array(
       'category' => 'other',
       'title' => t('Chart Library Selector'),
       'description' => t('Add data chartlib to your display wrapper and fields.'),
-      'value' => !empty($chartlib_selector) ? $chartlib_selector : t('None'),
+      'value' => $this->display->get_option('chartlib_selector'),
     );
   }
 
@@ -40,14 +39,12 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
     );
     if ($form_state['section'] == 'chartlib_selector') {
       $form['#title'] .= t('Data chartlib added to the display wrapper.');
-      $chartlib_selector = $this->display->get_option('chartlib_selector');
-      drupal_set_message("Get Option: " . $chartlib_selector);
       $form['chartlibselector'] = array(
         '#type' => 'radios',
         '#title' => t('Select a chart library'),
         '#options' => $options,
         '#description' => t('The chart library is the engine that you can use to generate charts with the given data from the views.  Note that the libraries should be installed.'),
-        '#default_value' => !empty($chartlib_selector) ? $chartlib_selector : t('None'),
+        '#default_value' => $this->display->get_option('chartlib_selector'),
       );
     }
   }
