@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Table to chart module
+ * Table to chart module.
  */
 
 /**
@@ -24,7 +24,7 @@ function table_chart_library() {
       array('table_chart', 'tabletojson'),
     ),
   );
-  // Raphael
+  // Raphael.
   $libraries['raphaeljs'] = array(
     'title' => 'Raphael',
     'version' => '2.2.1',
@@ -35,7 +35,7 @@ function table_chart_library() {
       ),
     ),
   );
-  // Morris.js
+  // Morris.js.
   $libraries['morrisjs'] = array(
     'title' => 'Morris.js',
     'version' => '0.4.3',
@@ -55,7 +55,7 @@ function table_chart_library() {
       array('table_chart', 'raphaeljs'),
     ),
   );
-  // Chartist.js
+  // Chartist.js.
   $libraries['chartistjs'] = array(
     'title' => 'Chartist.js',
     'version' => '0.11.0',
@@ -109,13 +109,12 @@ function table_chart_preprocess_views_view_table(&$vars) {
   if (!empty($vars['view'])) {
 
     $attributes = $vars['view']->display_handler->get_option('attributes');
-    //$attributes = table_chart_attributes_keyed_array($attributes);
-
+    // $attributes = table_chart_attributes_keyed_array($attributes);
     // Set the data attribute to what charting library to use on this chart.
     if (isset($table_chart_config['charting_library'])) {
       $attributes['data-charting-library'] = $table_chart_config['charting_library'];
     }
-    //dpm($attributes['data-charting-library']);
+    // dpm($attributes['data-charting-library']);.
     dpm($vars['view']->display_handler->get_option('attributes'));
 
     if (!empty($attributes)) {
@@ -126,19 +125,20 @@ function table_chart_preprocess_views_view_table(&$vars) {
 }
 
 /**
-* Implements hook_views_aggregator_results_table().
-*/
+ * Implements hook_views_aggregator_results_table().
+ */
 function table_chart_preprocess_views_aggregator_results_table(&$vars) {
   table_chart_preprocess_views_view_table($vars);
 }
 
 /**
- * Convert the attributes string into an array compatible with drupal_attributes
+ * Convert the attributes string into an array compatible with drupal_attributes.
  *
  * @param string $attributes
- *  String settings for the attributes
+ *   String settings for the attributes.
+ *
  * @return array
- *  Returns the array of valid attributes.
+ *   Returns the array of valid attributes.
  */
 function table_chart_attributes_keyed_array($attributes) {
   $tmp = explode("\n", $attributes);

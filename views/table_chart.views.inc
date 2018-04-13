@@ -25,4 +25,3 @@ function table_chart_views_plugins() {
 
   return $plugins;
 }
-
