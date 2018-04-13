@@ -28,9 +28,6 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
     $options = array(
       'chartistjs' => t('Use the Chartist.js library to generate your charts.'),
       'morrisjs' => t('Use the Morris.js library to generate your charts.'), 
-      'raphaeljs' => t('Use the Raphael library to generate your charts.'), 
-      'tabletochart' => t('Use the Table to Chart library to generate your charts.'), 
-      'tabletojson' => t('Use the Table to JSON library to generate your charts.'), 
     );
     if ($form_state['section'] == 'chartlib_selector') {
       $form['#title'] .= t('Data chartlib added to the display wrapper.');
@@ -41,8 +38,8 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
         '#title' => t('Select a chart library'),
         '#options' => $options,
         '#description' => t('The chart library is the engine that you can use to generate charts with the given data from the views.  Note that the libraries should be installed.'),
-        //'#default_value' => isset($node->active) ? $node->active : 1,
-        '#value' => !empty($chartlib_selector) ? t($chartlib_selector): t('None'),
+        '#default_value' => !empty($chartlib_selector) ? t($chartlib_selector): t('None'),
+        //'#value' => !empty($chartlib_selector) ? t($chartlib_selector): t('None'),
       );
     }
   }
