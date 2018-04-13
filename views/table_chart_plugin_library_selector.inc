@@ -25,7 +25,7 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
       'category' => 'other',
       'title' => t('Chart Library Selector'),
       'description' => t('Add data chartlib to your display wrapper and fields.'),
-      'value' => $this->display->get_option('chartlib_selector'),
+      'value' => ($this->display->get_option('chartlib_selector')) ? 'Yes' : 'NO',
     );
   }
 
