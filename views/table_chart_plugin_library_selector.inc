@@ -14,7 +14,7 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
    * {@inherit}
    */
   public function options_definition_alter(&$options) {
-    $options['chartlib_selector'] = array('morrisjs' => t('Use the Morris.js library to generate your charts.'));
+    $options['chartlib_selector'] = array('default' => 'morrisjs');
   }
 
   /**
