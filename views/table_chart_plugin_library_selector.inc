@@ -6,19 +6,19 @@
  */
 
 /**
- *
+ * Table to Chart Library Selector.
  */
 class table_chart_plugin_library_selector extends views_plugin_display_extender {
 
   /**
-   * Test commit.
+   * {@inherit}
    */
   public function options_definition_alter(&$options) {
     $options['chartlib_selector'] = array('default' => array());
   }
 
   /**
-   * Display the form summary as well as the selected library.
+   * {@inherit}
    */
   public function options_summary(&$categories, &$options) {
     $chartlib_selector = $this->display->get_option('chartlib_selector');
@@ -26,12 +26,12 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
       'category' => 'other',
       'title' => t('Chart Library Selector'),
       'description' => t('Add data chartlib to your display wrapper and fields.'),
-      'value' => !empty($chartlib_selector) ? t($chartlib_selector) : t('None'),
+      'value' => !empty($chartlib_selector) ? $chartlib_selector : t('None'),
     );
   }
 
   /**
-   * Display the form itself.
+   * {@inherit}
    */
   public function options_form(&$form, &$form_state) {
     $options = array(
@@ -47,13 +47,13 @@ class table_chart_plugin_library_selector extends views_plugin_display_extender 
         '#title' => t('Select a chart library'),
         '#options' => $options,
         '#description' => t('The chart library is the engine that you can use to generate charts with the given data from the views.  Note that the libraries should be installed.'),
-        '#default_value' => !empty($chartlib_selector) ? t($chartlib_selector) : t('None'),
+        '#default_value' => !empty($chartlib_selector) ? $chartlib_selector : t('None'),
       );
     }
   }
 
   /**
-   * Action on form submit.
+   * {@inherit}
    */
   public function options_submit(&$form, &$form_state) {
     if ($form_state['section'] == 'chartlib_selector') {

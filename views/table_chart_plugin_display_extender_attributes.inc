@@ -6,19 +6,19 @@
  */
 
 /**
- *
+ * Table to Chart plugin attributes.
  */
 class table_chart_plugin_display_extender_attributes extends views_plugin_display_extender {
 
   /**
-   *
+   * {@inherit}
    */
   public function options_definition_alter(&$options) {
     $options['attributes'] = array('default' => array());
   }
 
   /**
-   *
+   * {@inherit}
    */
   public function options_summary(&$categories, &$options) {
     $attributes = $this->display->get_option('attributes');
@@ -31,7 +31,7 @@ class table_chart_plugin_display_extender_attributes extends views_plugin_displa
   }
 
   /**
-   *
+   * {@inherit}
    */
   public function options_form(&$form, &$form_state) {
     if ($form_state['section'] == 'attributes') {
@@ -39,7 +39,7 @@ class table_chart_plugin_display_extender_attributes extends views_plugin_displa
       $attributes = $this->display->get_option('attributes');
       $form['attributes'] = array(
         '#type' => 'textarea',
-        '#title' => t('Data attributes to add to this display\'s wrapper and fields.'),
+        '#title' => t("Data attributes to add to this display's wrapper and fields."),
         '#description' => t('Add one data attribute per line. The data-* will automatically be prepended to your attribute definition. Leave out the wrapping quotes around the value since Drupal will add those automatically. (e.g. mydata=custom data turns into data-mydata="custom data")'),
         '#default_value' => $attributes,
       );
@@ -47,7 +47,7 @@ class table_chart_plugin_display_extender_attributes extends views_plugin_displa
   }
 
   /**
-   *
+   * {@inherit}
    */
   public function options_submit(&$form, &$form_state) {
     if ($form_state['section'] == 'attributes') {
