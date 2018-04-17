@@ -53,6 +53,7 @@ function table_chart_library() {
     'dependencies' => array(
       // Require jQuery UI core by System module.
       array('table_chart', 'raphaeljs'),
+      array('table_chart', 'tabletojson'),
     ),
   );
   // Chartist.js.
@@ -61,18 +62,22 @@ function table_chart_library() {
     'version' => '0.11.0',
     'website' => 'http://gionkunz.github.io/chartist-js/',
     'js' => array(
-      libraries_get_path('chartist-js') . 'dist/chartist.min.js' => array(
+      libraries_get_path('chartistjs') . '/dist/chartist.min.js' => array(
         'scope' => 'footer',
       ),
     ),
     'css' => array(
-      libraries_get_path('chartist-js') . '/chartist.css' => array(
+      libraries_get_path('chartistjs') . '/chartist.css' => array(
         'type' => 'file',
       ),
     ),
     'dependencies' => array(
       // Require jQuery UI core by System module.
-      array('table_chart', 'raphaeljs'),
+      //array('table_chart', 'raphaeljs'),
+      // Require table_chart.js
+      array('table_chart', 'tabletochart'),
+      // Require Table to JSON
+      array('table_chart', 'tabletojson'),
     ),
   );
   // Table to JSON.
@@ -100,23 +105,57 @@ function table_chart_views_api() {
 }
 
 /**
+ * Implements hook_views_pre_render().
+ */
+function table_chart_views_pre_render(&$view) {
+  $options = $view->display_handler->options;
+  if (isset($options['charting_library'])) {
+    $charting_library = $options['charting_library'];
+
+    //drupal_add_library('table_chart', $charting_library);
+    //$view['#attached']['library'][] = 'table_chart/tabletochart';
+    //$view['#attached']['library'][] = 'table_chart/' . $charting_library;
+  }
+
+  /*
+  // Get the views extenders to see if the table_chart extension exist.
+  $extender = $view->display_handler->getExtenders();
+  if (isset($extender['table_chart']->options['charting_library'])) {
+    $charting_library = $extender['table_chart']-data>options['charting_library'];
+
+    // Attached the libraries needed for that charing library.
+    $view->element['#attached']['library'][] = 'table_chart/tabletochart';
+    $view->element['#attached']['library'][] = 'table_chart/' . $charting_library;
+  }
+  */
+}
+
+/**
  * Implements hook_preprocess_views_view_table().
  */
 function table_chart_preprocess_views_view_table(&$vars) {
-  dpm("We are getting here...");
-  $chatlib = $vars['view']->display_handler->get_option('chartlib_selector');
-
   if (!empty($vars['view'])) {
 
+    // Get the custom attributes.
     $attributes = $vars['view']->display_handler->get_option('attributes');
-    // $attributes = table_chart_attributes_keyed_array($attributes);
-    // Set the data attribute to what charting library to use on this chart.
-    if (isset($table_chart_config['charting_library'])) {
-      $attributes['data-charting-library'] = $table_chart_config['charting_library'];
-    }
-    // dpm($attributes['data-charting-library']);.
-    dpm($vars['view']->display_handler->get_option('attributes'));
+    $attributes = table_chart_attributes_keyed_array($attributes);
 
+    // Get all the other options.
+    $options = $vars['view']->display_handler->options;
+
+    if (isset($options['charting_library'])) {
+      $charting_library = $options['charting_library'];
+      // Add selected chart library.
+      drupal_add_library('table_chart', $charting_library);
+      drupal_add_js(drupal_get_path('module', 'table_chart') . '/table_chart.js', array('group' => JS_LIBRARY, 'weight' => -1));
+    }
+    
+    // Set the data attribute to the selected charting library for this chart.
+    if (isset($options['charting_library'])) {
+      $attributes['data-charting-library'] = $options['charting_library'];
+    }
+    
+    // Add all the attributes.
     if (!empty($attributes)) {
       $vars['attributes_array'] = $vars['attributes_array'] + $attributes;
     }

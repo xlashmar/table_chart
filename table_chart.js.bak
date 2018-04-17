@@ -1,19 +1,17 @@
 (function($) {
     Drupal.behaviors.table_chart = {
       attach: function(context, settings) {
-        var count = 0;        
+        var count = 0;
         $('.table-chart').each(function(){
           count++;
           $(this).once('.table-chart').each(function(){
             var wrapper = $(this);
             var table = wrapper.find('table');
             var chartLibrary = table.data('charting-library');
-            //var chartLibrary = table.attr('charting-library');
-            alert("get here " + chartLibrary);
   
             // Check if the charting library and based on that formulate the table from the json object to how we can formulate it.
             switch(chartLibrary) {
-              case 'chartistjs':
+              case 'chartist':
                 chartist(wrapper, table, count);
                 break;
               case 'morrisjs':
@@ -184,8 +182,7 @@
         ['labels', 'array', null]
       ];
   
-      //alert('getting here now: ');
-      options = generateOptionsList(optKeys, table, 'morris');  
+      options = generateOptionsList(optKeys, table, 'morris');
       options.element = 'morris-chart-' + count;
       // Data settings.
   
