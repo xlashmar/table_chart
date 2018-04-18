@@ -47,16 +47,26 @@
       
       // Get the labels from the json table_data (They are the object keys).
       $(Object.keys(table_data[0])).each(function(key,value) {
-        data_labels.push(value);
+        //data_labels.push(value);
       })
       
+      /*
+      * The weird thing about chartistjs is that the labels array that it takes
+      * is basically the X axis.  While the series array becomes the Y axis.  
+      * Obviously this can be reversed but it depends on the situation.
+      */
       $(table_data).each(function() {
         // iterate over the rows
         $(this).each(function(i) {
           iter=0;
           // iterate over the column array (there is only two elements).
           $.each($(this)[i], function(key, value) {
-            data_series[iter].push(value);
+            if (iter == 0) {
+              data_labels.push(value);
+            }
+            else {
+              data_series.push(value);
+            }
             iter++;
           });
         });
