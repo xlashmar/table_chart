@@ -45,10 +45,10 @@
           headings: options.headings
       });
       
-      // Get the labels from the json table_data (They are the object keys).
-      $(Object.keys(table_data[0])).each(function(key,value) {
-        //data_labels.push(value);
-      })
+      // // Get the labels from the json table_data (They are the object keys).
+      // $(Object.keys(table_data[0])).each(function(key,value) {
+      //   //data_labels.push(value);
+      // })
       
       /*
       * The weird thing about chartistjs is that the labels array that it takes
