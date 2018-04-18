@@ -37,6 +37,7 @@
         headings.push($(this).text());
       });
   
+      // Convert the table to a JSON array
       var table_data = table.tableToJSON({
           ignoreColumns: options.ignoreColumns,
           onlyColumns: options.onlyColumns,
@@ -44,17 +45,18 @@
           headings: options.headings
       });
       
-      // Get the labels from the json table_data
+      // Get the labels from the json table_data (They are the object keys).
       $(Object.keys(table_data[0])).each(function(key,value) {
         data_labels.push(value);
       })
       
       $(table_data).each(function() {
+        // iterate over the rows
         $(this).each(function(i) {
           iter=0;
+          // iterate over the column array (there is only two elements).
           $.each($(this)[i], function(key, value) {
             data_series[iter].push(value);
-            // iterate over the columns array.
             iter++;
           });
         });
