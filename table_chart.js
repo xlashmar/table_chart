@@ -9,7 +9,6 @@
             var table = wrapper.find('table');
             var chartLibrary = table.data('charting-library');
             //var chartLibrary = table.attr('charting-library');
-            alert("get here " + chartLibrary);
   
             // Check if the charting library and based on that formulate the table from the json object to how we can formulate it.
             switch(chartLibrary) {
@@ -31,34 +30,32 @@
       var headings = [];
       var data_labels = [];
       var data_series = [];
-  
+      data_series[0] = [];
+      data_series[1] = [];
+
       $(table).find("thead tr th").each(function(){
         headings.push($(this).text());
       });
   
-      var table_data = table.tableToJSON();
-      // Fist element in the headings will the labels and the 2 and plus items will the series.
+      var table_data = table.tableToJSON({
+          ignoreColumns: options.ignoreColumns,
+          onlyColumns: options.onlyColumns,
+          ignoreHiddenRows: options.ignoreHiddenRows,
+          headings: options.headings
+      });
+      
+      // Get the labels from the json table_data
+      $(Object.keys(table_data[0])).each(function(key,value) {
+        data_labels.push(value);
+      })
+      
       $(table_data).each(function() {
         $(this).each(function(i) {
+          iter=0;
           $.each($(this)[i], function(key, value) {
-            // Check if its first heading element.
-            var first_element = $(headings).first();
-            if (first_element[0] == key) {
-              // first heading element so make it a label element.
-              data_labels.push(value);
-            }
-            else {
-              var item_array = $.inArray(key, headings);
-              // negate 1 to remote the first table label element.
-              item_array = item_array - 1;
-              if (typeof data_series[item_array] === 'undefined') {
-                data_series[item_array] = [];
-                data_series[item_array].push(value);
-              }
-              else {
-                data_series[item_array].push(value);
-              }
-            }
+            data_series[iter].push(value);
+            // iterate over the columns array.
+            iter++;
           });
         });
       });
@@ -68,6 +65,7 @@
         labels: data_labels,
         series: data_series,
       };
+      console.log(data);
   
       var optKeys = [
         ['seriesBarDistance', 'int', 15],
