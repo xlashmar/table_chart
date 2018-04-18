@@ -30,8 +30,6 @@
       var headings = [];
       var data_labels = [];
       var data_series = [];
-      data_series[0] = [];
-      data_series[1] = [];
 
       $(table).find("thead tr th").each(function(){
         headings.push($(this).text());
