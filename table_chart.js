@@ -55,23 +55,50 @@
       * is basically the X axis.  While the series array becomes the Y axis.  
       * Obviously this can be reversed but it depends on the situation.
       */
+      // $(table_data).each(function() {
+      //   // iterate over the rows
+      //   $(this).each(function(i) {
+      //     iter=0;
+      //     // iterate over the column array (there is only two elements).
+      //     $.each($(this)[i], function(key, value) {
+      //       if (iter == 0) {
+      //         data_labels.push(value);
+      //       }
+      //       else {
+      //         data_series.push(value);
+      //       }
+      //       iter++;
+      //     });
+      //   });
+      // });
+  
+      var table_data = table.tableToJSON();
+      // Fist element in the headings will the labels and the 2 and plus items will the series.
       $(table_data).each(function() {
-        // iterate over the rows
         $(this).each(function(i) {
-          iter=0;
-          // iterate over the column array (there is only two elements).
           $.each($(this)[i], function(key, value) {
-            if (iter == 0) {
+            // Check if its first heading element.
+            var first_element = $(headings).first();
+            if (first_element[0].trim() == key) {
+              // first heading element so make it a label element.
               data_labels.push(value);
             }
             else {
-              data_series.push(value);
+              var item_array = $.inArray(key, headings);
+              // negate 1 to remote the first table label element.
+              item_array = item_array - 1;
+              if (typeof data_series[item_array] === 'undefined') {
+                data_series[item_array] = [];
+                data_series[item_array].push(value);
+              }
+              else {
+                data_series[item_array].push(value);
+              }
             }
-            iter++;
           });
         });
       });
-  
+      
       // Create the chartis json object to create the markup.
       var data = {
         labels: data_labels,
