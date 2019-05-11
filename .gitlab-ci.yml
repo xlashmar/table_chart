@@ -1,0 +1,96 @@
+variables:
+  PHPCS_EXTENSIONS: php,module,inc,install,test,profile,theme
+  PHPCS_IGNORE: testing/*,node_modules/*,vendor/*,bin/*,*.md,*/modules/*,*/themes/*,*/libraries/*
+  COMPOSER_SHA: 544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061
+
+stages:
+  - code_test
+  - code_test_failure
+  - build_seven_test
+  - build_five_test
+
+# Composer stores all downloaded packages in the vendor/ directory.
+# Do not use the following if the vendor/ directory is commited to
+# your git repository.
+
+cache:
+  paths:
+  - vendor/
+  - bin/
+
+before_script:
+  - mkdir -p bin
+  - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+  - php -r "if (hash_file('SHA384', 'composer-setup.php') === '$COMPOSER_SHA') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); exit(1); } echo PHP_EOL;"
+  - php composer-setup.php --install-dir=bin --filename=composer
+  - php -r "unlink('composer-setup.php');"
+  - bin/composer --version
+  - bin/composer require drush/drush:8.*
+  - export PATH="$PATH:./vendor/bin"
+
+###############################
+# Code test stage
+###############################
+
+# Coding standards
+drupal_coding_standards:
+  script:
+    - bin/composer require drupal/coder --dev
+    - phpcs --config-set installed_paths vendor/drupal/coder/coder_sniffer
+    - phpcs --ignore=$PHPCS_IGNORE --standard=Drupal --extensions=$PHPCS_EXTENSIONS ./
+    - phpcs --ignore=$PHPCS_IGNORE --standard=DrupalPractice --extensions=$PHPCS_EXTENSIONS ./
+  stage: code_test
+  tags:
+    - drupal 7
+
+drupal_coding_standards_diff:
+  script:
+    - bin/composer require drupal/coder --dev
+    - phpcs --config-set installed_paths vendor/drupal/coder/coder_sniffer
+    - phpcs --ignore=$PHPCS_IGNORE --standard=Drupal --extensions=$PHPCS_EXTENSIONS --report-diff=fix-drupal-standards.diff ./
+    - phpcs --ignore=$PHPCS_IGNORE --standard=DrupalPractice --extensions=$PHPCS_EXTENSIONS --report-diff=fix-drupal-practice.diff ./
+  stage: code_test_failure
+  tags:
+    - drupal 7
+  when: on_failure
+  artifacts:
+    name: "$CI_PROJECT_NAME-$CI_BUILD_REF_NAME-phpcsdiff"
+    expire_in: 1 day
+    paths:
+      - fix-drupal-standards.diff
+      - fix-drupal-practice.diff
+    when: on_failure
+
+###############################
+# Build stage
+###############################
+
+# Development build
+drush_make_dev_seven_build:
+  stage: build_seven_test
+  variables:
+    DRUSH_ALIAS_TYPE: dev
+  script:
+    - bin/composer install -d=build
+  artifacts:
+    name: "$CI_PROJECT_NAME-$CI_BUILD_REF_NAME"
+    expire_in: 1 day
+    paths:
+      - build
+  tags:
+    - drupal 7
+
+# Test build on php 5
+drush_make_dev_five_build:
+  stage: build_five_test
+  variables:
+    DRUSH_ALIAS_TYPE: dev
+  script:
+    - bin/composer install -d=build
+  artifacts:
+    name: "$CI_PROJECT_NAME-$CI_BUILD_REF_NAME"
+    expire_in: 1 day
+    paths:
+      - build
+  tags:
+    - php 5

@@ -1,18 +1,17 @@
 (function($) {
     Drupal.behaviors.table_chart = {
       attach: function(context, settings) {
-        var count = 0;        
+        var count = 0;
         $('.table-chart').each(function(){
           count++;
           $(this).once('.table-chart').each(function(){
             var wrapper = $(this);
             var table = wrapper.find('table');
             var chartLibrary = table.data('charting-library');
-            //var chartLibrary = table.attr('charting-library');
   
             // Check if the charting library and based on that formulate the table from the json object to how we can formulate it.
             switch(chartLibrary) {
-              case 'chartistjs':
+              case 'chartist':
                 chartist(wrapper, table, count);
                 break;
               case 'morrisjs':
@@ -30,45 +29,10 @@
       var headings = [];
       var data_labels = [];
       var data_series = [];
-
+  
       $(table).find("thead tr th").each(function(){
         headings.push($(this).text());
       });
-  
-      // Convert the table to a JSON array
-      var table_data = table.tableToJSON({
-          ignoreColumns: options.ignoreColumns,
-          onlyColumns: options.onlyColumns,
-          ignoreHiddenRows: options.ignoreHiddenRows,
-          headings: options.headings
-      });
-      
-      // // Get the labels from the json table_data (They are the object keys).
-      // $(Object.keys(table_data[0])).each(function(key,value) {
-      //   //data_labels.push(value);
-      // })
-      
-      /*
-      * The weird thing about chartistjs is that the labels array that it takes
-      * is basically the X axis.  While the series array becomes the Y axis.  
-      * Obviously this can be reversed but it depends on the situation.
-      */
-      // $(table_data).each(function() {
-      //   // iterate over the rows
-      //   $(this).each(function(i) {
-      //     iter=0;
-      //     // iterate over the column array (there is only two elements).
-      //     $.each($(this)[i], function(key, value) {
-      //       if (iter == 0) {
-      //         data_labels.push(value);
-      //       }
-      //       else {
-      //         data_series.push(value);
-      //       }
-      //       iter++;
-      //     });
-      //   });
-      // });
   
       var table_data = table.tableToJSON();
       // Fist element in the headings will the labels and the 2 and plus items will the series.
@@ -77,7 +41,7 @@
           $.each($(this)[i], function(key, value) {
             // Check if its first heading element.
             var first_element = $(headings).first();
-            if (first_element[0].trim() == key) {
+            if (first_element[0] == key) {
               // first heading element so make it a label element.
               data_labels.push(value);
             }
@@ -96,13 +60,12 @@
           });
         });
       });
-      
+  
       // Create the chartis json object to create the markup.
       var data = {
         labels: data_labels,
         series: data_series,
       };
-      console.log(data);
   
       var optKeys = [
         ['seriesBarDistance', 'int', 15],
@@ -219,8 +182,7 @@
         ['labels', 'array', null]
       ];
   
-      //alert('getting here now: ');
-      options = generateOptionsList(optKeys, table, 'morris');  
+      options = generateOptionsList(optKeys, table, 'morris');
       options.element = 'morris-chart-' + count;
       // Data settings.
   

@@ -5,3 +5,4 @@ dependencies[] = libraries
 enhances[] = views
 recommends[] = library_attach
 files[] = views/table_chart_plugin_display_extender_attributes.inc
+files[] = views/table_chart_plugin_library_selector.inc
